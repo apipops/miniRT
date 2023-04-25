@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/25 16:51:21 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/25 17:37:42 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <mlx.h>
 # include <errno.h>
+# include <stdbool.h>
 /* # include <X11/X.h>
 # include <X11/keysym.h> */
 
@@ -69,19 +70,6 @@ typedef struct s_shade
 	float	b;
 }	t_shade;
 
-typedef struct s_altcol
-{
-	int		z;
-	t_shade	color;
-}	t_altcol;
-
-typedef struct s_coor3d
-{
-	float		x;
-	float		y;
-	t_altcol	alt;
-}	t_coor3d;
-
 typedef struct s_vec3
 {
 	double	x;
@@ -95,12 +83,6 @@ typedef struct s_ray
 	t_vec3	direction;
 }	t_ray;
 
-typedef struct s_coor2d
-{
-	int		x;
-	int		y;
-	t_shade	col;
-}	t_coor2d;
 
 typedef struct s_size2d
 {
@@ -108,16 +90,6 @@ typedef struct s_size2d
 	int	y;
 }	t_size2d;
 
-typedef struct s_params
-{
-	int			a1;
-	int			a2;
-	t_size2d	cent;
-	float		tsize;
-	float		alti;
-	int			type;
-	int			color;
-}	t_params;
 
 typedef struct s_data
 {

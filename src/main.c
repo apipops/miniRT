@@ -6,35 +6,13 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:40:22 by avast             #+#    #+#             */
-/*   Updated: 2023/04/25 16:58:07 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/25 17:40:02 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/params.h"
 #include "../includes/proto.h"
 #include "../libft/libft.h"
-
-void	free_tab_altcol(t_altcol **tab, int i)
-{
-	if (i < 0)
-		return ;
-	while (i >= 0)
-	{
-		free(tab[i]);
-		i--;
-	}
-	free(tab);
-}
-
-void	free_tab_coor2d(t_coor2d **tab, int index)
-{
-	while (index >= 0)
-	{
-		free(tab[index]);
-		index--;
-	}
-	free(tab);
-}
 
 t_vec3	calculate_lower_left_corner(t_data data)
 {
@@ -46,7 +24,7 @@ t_vec3	calculate_lower_left_corner(t_data data)
 	return (corner);
 }
 
-int	main(int ac, char **av)
+int	main(void)
 {
 	t_data		data;
 
@@ -64,17 +42,16 @@ int	main(int ac, char **av)
 	// Initialization data
 	data.aspect_ratio = WIDTH / HEIGHT;
 	data.viewport_height = 2;
-	data.viewport_width = data.viewport_height * data.aspect_;
+	data.viewport_width = data.viewport_height * data.aspect_ratio;
 	data.focal_length = 1;
-	data.origin = {0, 0, 0};
-	data.horizontal = {data.viewport_width, 0, 0};
-	data.vertical = {0, data.viewport_height, 0};
+	data.origin = (t_vec3){0, 0, 0};
+	data.horizontal = (t_vec3){data.viewport_width, 0, 0};
+	data.vertical = (t_vec3){0, data.viewport_height, 0};
 	data.lower_left_corner = calculate_lower_left_corner(data);
 
 	// Render & loop
 	mlx_loop_hook(data.mlx_ptr, &display, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
-	mlx_hook(data.win_ptr, ButtonPress, ButtonPressMask, &handle_mouse, &data);
 	mlx_hook(data.win_ptr, 17, ButtonPressMask, &close_window, &data);
 	mlx_loop(data.mlx_ptr);
 }

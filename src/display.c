@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 16:31:09 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 16:45:28 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ double	hit_sphere(t_vec3 center, double radius, t_ray r)
 	if (half_b * half_b - 4 * a * c < 0)
 		return (-1);
 	else
-		return (-half_b - sqrt(half_b * half_b - 4 * a * c) / (2 * a));
+		return ((-half_b - sqrt(half_b * half_b - 4 * a * c)) / (2 * a));
 /* 	if (half_b * half_b - a * c < 0)
 		return (-1);
 	else
@@ -87,7 +87,6 @@ int	define_color(t_ray r, double t)
 	normal.x = 255.999 * (0.5 * (normal.x + 1));
 	normal.y = 255.999 * (0.5 * (normal.y + 1));
 	normal.z = 255.999 * (0.5 * (normal.z + 1));
-	//printf("r = %f, g = %f, b = %f\n", normal.x, normal.y, normal.z);
 	return (get_color(normal));
 }
 
@@ -101,8 +100,6 @@ int	define_background_color(t_ray r)
 	normal.x = 255.999 * ((1 - t) + (t * 0.5));
 	normal.y = 255.999 * ((1 - t) + (t * 0.7));
 	normal.z = 255.999 * ((1 - t) + (t * 1));
-
-	//printf("r = %f, g = %f, b = %f\n", normal.x, normal.y, normal.z);
 	return (get_color(normal));
 }
 

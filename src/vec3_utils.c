@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 12:48:17 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 15:41:02 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 16:42:28 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,8 @@ t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 
 t_vec3	vec3_at(t_ray ray, double t)
 {
-	return (vec3_add(ray.origin, vec3_mult(ray.direction, t)));
+	t_vec3	multidir;
+
+	multidir = vec3_mult(ray.direction, t);
+	return (vec3_add(ray.origin, multidir));
 }

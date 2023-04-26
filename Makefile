@@ -2,6 +2,8 @@ NAME = miniRT
 
 SRC = src/display.c \
 	src/hooks.c \
+	src/vec3_utils.c \
+	src/shading.c \
 	src/main.c \
 
 OBJ = $(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:40:22 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 11:49:17 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 16:07:10 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(void)
 	data.aspect_ratio = (double)WIDTH / (double)HEIGHT;
 	data.viewport_height = 4;
 	data.viewport_width = data.viewport_height * data.aspect_ratio;
-	data.focal_length = 1;
+	data.focal_length = 2;
 	data.origin = (t_vec3){0, 0, 0};
 	data.horizontal = (t_vec3){data.viewport_width, 0, 0};
 	data.vertical = (t_vec3){0, data.viewport_height, 0};

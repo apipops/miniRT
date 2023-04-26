@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 12:40:27 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 14:25:11 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@
 
 # define MLX_ERROR 1
 
-# define RED_PIXEL 0xFF0000
-# define GREEN_PIXEL 0xFF00
+# define RED 0xFF0000
+# define GREEN 0xFF00
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
 
@@ -68,9 +68,9 @@ typedef struct s_img
 
 typedef struct s_shade
 {
-	float	r;
-	float	g;
-	float	b;
+	double	r;
+	double	g;
+	double	b;
 }	t_shade;
 
 typedef struct s_vec2

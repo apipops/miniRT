@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:38:13 by avast             #+#    #+#             */
-/*   Updated: 2023/01/04 16:12:21 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 15:21:00 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/proto.h"
 #include "../libft/libft.h"
 
-t_shade	read_shade(char *str)
+/* t_shade	read_shade(char *str)
 {
 	int		i;
 	t_shade	color;
@@ -49,18 +49,18 @@ t_shade	get_opp_color(t_shade color)
 	new_color.g = 255 - color.g;
 	new_color.b = 255 - color.b;
 	return (new_color);
-}
+} */
 
-int	get_color(t_shade color)
+int	get_color(t_vec3 color)
 {
 	int	new_color;
 
-	new_color = (((int)color.r & 0x0ff) << 16)
-		| (((int)color.g & 0x0ff) << 8) | ((int)color.b & 0x0ff);
+	new_color = (((int)color.x & 0x0ff) << 16)
+		| (((int)color.y & 0x0ff) << 8) | ((int)color.z & 0x0ff);
 	return (new_color);
 }
 
-t_shade	calculate_shading(t_shade a, t_shade b, int gap)
+/* t_shade	calculate_shading(t_shade a, t_shade b, int gap)
 {
 	t_shade	color_gap;
 
@@ -94,3 +94,4 @@ t_shade	get_next_color(t_shade color, t_shade gap)
 		color.b = 0;
 	return (color);
 }
+ */

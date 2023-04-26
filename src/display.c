@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 12:40:14 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 16:31:09 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,77 @@ void	display_background(t_img *img)
 		j = 0;
 		while (j < WIDTH)
 		{
-			img_pix_put(img, j, i, WHITE);
+			img_pix_put(img, j, i, BLACK);
 			j++;
 		}
 		++i;
 	}
 }
 
-bool	hit_sphere(t_vec3 center, double radius, t_ray r)
+double	hit_sphere(t_vec3 center, double radius, t_ray r)
 {
 	t_vec3	oc;
 	double	a;
 	double	half_b;
 	double	c;
+	//t_vec3	normal;
+	//double	root;
 
-	oc.x = r.origin.x - center.x;
-	oc.y = r.origin.y - center.y;
-	oc.z = r.origin.z - center.z;
-	a = r.direction.x * r.direction.x + r.direction.y * r.direction.y + r.direction.z * r.direction.z;
-	half_b = oc.x * r.direction.x + oc.y * r.direction.y + oc.z * r.direction.z;
-	c = oc.x * oc.x + oc.y * oc.y + oc.z * oc.z - radius * radius;
-	if (half_b * half_b - a * c < 0)
-		return (false);
-	return (true);
+	/*oc = r.origin - center */
+	oc = vec3_sub(r.origin, center);
+	a = vec3_dot(r.direction, r.direction);
+	//half_b = vec3_dot(oc, r.direction);
+	half_b = 2 * vec3_dot(oc, r.direction);
+	c = vec3_dot(oc, oc) - radius * radius;
+	if (half_b * half_b - 4 * a * c < 0)
+		return (-1);
+	else
+		return (-half_b - sqrt(half_b * half_b - 4 * a * c) / (2 * a));
+/* 	if (half_b * half_b - a * c < 0)
+		return (-1);
+	else
+		return (-half_b - sqrt(half_b * half_b - a * c) / a); */
+	/* Calcul normal */
+
+	/* trouver le nearest root that lies in the acceptable range */
+/* 	root = (-half_b - sqrt(half_b * half_b - a * c)) / a;
+	if (root < max.x || max.y < root)
+	{
+		root = (-half_b + sqrt(half_b * half_b - a * c)) / a;
+		if (root < max.x || max.y < root)
+			return (false);
+	} */
+	/* Enregistrer les donnees */
+/* 	t = root;
+	p = r.origin + root * r.direction;
+	normal = (p - center) / radius; */
+}
+
+int	define_color(t_ray r, double t)
+{
+	t_vec3	normal;
+
+	normal = vec3_unit_vector(vec3_sub(vec3_at(r, t), (t_vec3){0, 0, -1}));
+	normal.x = 255.999 * (0.5 * (normal.x + 1));
+	normal.y = 255.999 * (0.5 * (normal.y + 1));
+	normal.z = 255.999 * (0.5 * (normal.z + 1));
+	//printf("r = %f, g = %f, b = %f\n", normal.x, normal.y, normal.z);
+	return (get_color(normal));
+}
+
+int	define_background_color(t_ray r)
+{
+	t_vec3	normal;
+	double	t;
+
+	normal = vec3_unit_vector(r.direction);
+	t = 0.5 * (normal.y + 1);
+	normal.x = 255.999 * ((1 - t) + (t * 0.5));
+	normal.y = 255.999 * ((1 - t) + (t * 0.7));
+	normal.z = 255.999 * ((1 - t) + (t * 1));
+
+	//printf("r = %f, g = %f, b = %f\n", normal.x, normal.y, normal.z);
+	return (get_color(normal));
 }
 
 void	display_ray(t_data *data)
@@ -65,10 +113,11 @@ void	display_ray(t_data *data)
 	double	u;
 	double	v;
 	t_ray	r;
+	double	t;
 
 	r.origin = data->origin;
-	j = HEIGHT - 1;
-	while (j >= 0)
+	j = 0;
+	while (j < HEIGHT)
 	{
 		i = 0;
 		while (i < WIDTH)
@@ -78,13 +127,14 @@ void	display_ray(t_data *data)
 			r.direction.x = data->lower_left_corner.x + u * data->horizontal.x + v * data->vertical.x - data->origin.x;
 			r.direction.y = data->lower_left_corner.y + u * data->horizontal.y + v * data->vertical.y - data->origin.y;
 			r.direction.z = data->lower_left_corner.z + u * data->horizontal.z + v * data->vertical.z - data->origin.z;
-			if (hit_sphere((t_vec3){0, -100.5, -1}, 100, r))
-				img_pix_put(&data->img, i, j, GREEN_PIXEL);
-			if (hit_sphere((t_vec3){0, 0, -1}, 0.5, r))
-				img_pix_put(&data->img, i, j, RED_PIXEL);
+			t = hit_sphere((t_vec3){0, 0, -1}, 0.5, r);
+			if (t == -1)
+				img_pix_put(&data->img, i, HEIGHT - j - 1, define_background_color(r));
+			else
+				img_pix_put(&data->img, i, HEIGHT - j - 1, define_color(r, t));
 			i++;
 		}
-		j--;
+		j++;
 	}
 }
 

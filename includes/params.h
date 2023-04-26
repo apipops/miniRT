@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/25 17:49:24 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 12:35:00 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@
 # include <mlx.h>
 # include <errno.h>
 # include <stdbool.h>
-/* # include <X11/X.h>
-# include <X11/keysym.h> */
 
-# define XK_space 49
+/* A commenter pour macos */
+# include <X11/X.h>
+# include <X11/keysym.h>
+
+/* A decommenter pour macos */
+/* # define XK_space 49
 # define XK_2 19
 # define XK_1 18
 # define XK_c 8
@@ -42,10 +45,10 @@
 # define KeyPress 02
 # define KeyPressMask (1L<<0)
 # define ButtonPress 04
-# define ButtonPressMask (1L<<2)
+# define ButtonPressMask (1L<<2) */
 
-# define WIDTH 600
-# define HEIGHT 300
+# define WIDTH 1000
+# define HEIGHT 600
 
 # define MLX_ERROR 1
 
@@ -69,6 +72,12 @@ typedef struct s_shade
 	float	g;
 	float	b;
 }	t_shade;
+
+typedef struct s_vec2
+{
+	double	x;
+	double	y;
+}	t_vec3;
 
 typedef struct s_vec3
 {

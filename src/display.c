@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/25 18:00:37 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 12:35:52 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ void	display_ray(t_data *data)
 			r.direction.x = data->lower_left_corner.x + u * data->horizontal.x + v * data->vertical.x - data->origin.x;
 			r.direction.y = data->lower_left_corner.y + u * data->horizontal.y + v * data->vertical.y - data->origin.y;
 			r.direction.z = data->lower_left_corner.z + u * data->horizontal.z + v * data->vertical.z - data->origin.z;
+			if (hit_sphere((t_vec3){0, -100.5, -1}, 100, r))
+				img_pix_put(&data->img, i, j, GREEN_PIXEL);
 			if (hit_sphere((t_vec3){0, 0, -1}, 0.5, r))
-				img_pix_put(&data->img, j, i, RED_PIXEL);
+				img_pix_put(&data->img, i, j, RED_PIXEL);
 			i++;
 		}
 		j--;

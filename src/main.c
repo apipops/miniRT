@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:40:22 by avast             #+#    #+#             */
-/*   Updated: 2023/04/25 17:40:02 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 11:49:17 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	main(void)
 			&data.img.line_len, &data.img.endian);
 
 	// Initialization data
-	data.aspect_ratio = WIDTH / HEIGHT;
-	data.viewport_height = 2;
+	data.aspect_ratio = (double)WIDTH / (double)HEIGHT;
+	data.viewport_height = 4;
 	data.viewport_width = data.viewport_height * data.aspect_ratio;
 	data.focal_length = 1;
 	data.origin = (t_vec3){0, 0, 0};

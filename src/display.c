@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 12:35:52 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 12:40:14 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,18 @@ bool	hit_sphere(t_vec3 center, double radius, t_ray r)
 {
 	t_vec3	oc;
 	double	a;
-	double	b;
+	double	half_b;
 	double	c;
 
 	oc.x = r.origin.x - center.x;
 	oc.y = r.origin.y - center.y;
 	oc.z = r.origin.z - center.z;
 	a = r.direction.x * r.direction.x + r.direction.y * r.direction.y + r.direction.z * r.direction.z;
-	b = 2 * oc.x * r.direction.x + 2 * oc.y * r.direction.y + 2 * oc.z * r.direction.z;
+	half_b = oc.x * r.direction.x + oc.y * r.direction.y + oc.z * r.direction.z;
 	c = oc.x * oc.x + oc.y * oc.y + oc.z * oc.z - radius * radius;
-	return (b * b - 4 * a * c >= 0);
+	if (half_b * half_b - a * c < 0)
+		return (false);
+	return (true);
 }
 
 void	display_ray(t_data *data)

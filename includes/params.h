@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 12:35:00 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 12:40:27 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_vec2
 {
 	double	x;
 	double	y;
-}	t_vec3;
+}	t_vec2;
 
 typedef struct s_vec3
 {

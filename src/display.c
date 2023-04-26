@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 16:45:28 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/26 16:47:44 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,12 @@ double	hit_sphere(t_vec3 center, double radius, t_ray r)
 	/*oc = r.origin - center */
 	oc = vec3_sub(r.origin, center);
 	a = vec3_dot(r.direction, r.direction);
-	//half_b = vec3_dot(oc, r.direction);
-	half_b = 2 * vec3_dot(oc, r.direction);
+	half_b = vec3_dot(oc, r.direction);
 	c = vec3_dot(oc, oc) - radius * radius;
-	if (half_b * half_b - 4 * a * c < 0)
+ 	if (half_b * half_b - a * c < 0)
 		return (-1);
 	else
-		return ((-half_b - sqrt(half_b * half_b - 4 * a * c)) / (2 * a));
-/* 	if (half_b * half_b - a * c < 0)
-		return (-1);
-	else
-		return (-half_b - sqrt(half_b * half_b - a * c) / a); */
+		return ((-half_b - sqrt(half_b * half_b - a * c)) / a);
 	/* Calcul normal */
 
 	/* trouver le nearest root that lies in the acceptable range */

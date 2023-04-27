@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 14:25:11 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 11:35:54 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,13 @@ typedef struct s_ray
 }	t_ray;
 
 
-typedef struct s_size2d
+typedef struct s_hit_record
 {
-	int	x;
-	int	y;
-}	t_size2d;
-
+	t_vec3	p;
+	t_vec3	normal;
+	double	t;
+	bool	front_face;
+}	t_hit_rec;
 
 typedef struct s_data
 {

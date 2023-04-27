@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 15:06:45 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 18:04:18 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,35 @@ void	display_background(t_img *img)
 
 int	define_color(t_ray r, t_vec2 limit)
 {
-	t_vec3		normal;
+	t_vec3		init_color;
+	t_vec3		light_origin;
+	t_vec3		l_vector;
+	t_vec3		color;
 	double		t;
 	t_hit_rec	rec;
 
+	init_color = (t_vec3){1, 0, 0};
+	light_origin = (t_vec3){-2, 2, -1};
 	if (hit_anything(r, limit, &rec))
-		normal.xyz = 255.999 * (0.5 * (rec.normal.xyz + 1));
+	{
+		// Position de l'objet ou de la camera ou rec.t ou rec.p ?
+		// Position de la surface
+		l_vector.xyz = vec3_unit_vector(light_origin.xyz - rec.p);
+		//color.xyz = 0.5 * (rec.normal.xyz + 1);
+/* 		if (vec3_dot(rec.normal, l_vector) >= 0)
+			color.xyz = 0;
+		else */
+ 			color.xyz = 1 * ft_abs(vec3_dot(rec.normal, l_vector)) * (t_vec3){0.75, 0, 1};
+	}
 	else
 	{
-		normal = vec3_unit_vector(r.direction);
-		t = 0.5 * (normal.y + 1);
-		normal.x = 255.999 * ((1 - t) + (t * 0.5));
-		normal.y = 255.999 * ((1 - t) + (t * 0.7));
-		normal.z = 255.999 * ((1 - t) + (t * 1));
+ 		color = vec3_unit_vector(r.direction);
+		t = 0.5 * (color.y + 1);
+		color.x = (1 - t) + (t * 0.5);
+		color.y = (1 - t) + (t * 0.7);
+		color.z = (1 - t) + (t * 1);
 	}
-	return (get_color(normal));
+	return (get_color(color));
 }
 
 bool	hit_anything(t_ray r, t_vec2 limit, t_hit_rec *rec)
@@ -73,12 +87,12 @@ bool	hit_anything(t_ray r, t_vec2 limit, t_hit_rec *rec)
 		closest_so_far = temp_rec.t;
 		*rec = temp_rec;
 	}
-	if (hit_sphere((t_vec3){-1, 0, -1}, 0.5, r, (t_vec2){limit.x, closest_so_far}, &temp_rec))
+/* 	if (hit_sphere((t_vec3){0, -100.5, -1}, 100, r, (t_vec2){limit.x, closest_so_far}, &temp_rec))
 	{
 		hit_anything = true;
 		closest_so_far = temp_rec.t;
 		*rec = temp_rec;
-	}
+	} */
 	return (hit_anything);
 }
 

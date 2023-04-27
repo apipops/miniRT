@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 18:29:27 by avast             #+#    #+#             */
-/*   Updated: 2022/12/08 17:03:57 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 17:21:28 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 #include "../includes/proto.h"
 #include "../libft/libft.h"
 
-float	cal_cos(int a)
+double	cal_cos(int a)
 {
 	return (cos(0.0174533 * a));
 }
 
-float	cal_sin(int a)
+double	cal_sin(int a)
 {
 	return (sin(0.0174533 * a));
 }
 
-int	ft_abs(int a)
+double	ft_abs(double a)
 {
 	if (a < 0)
 		return (-a);
@@ -38,4 +38,13 @@ int	ft_sign(int a)
 	else if (a > 0)
 		return (1);
 	return (0);
+}
+
+double	ft_clamp(double x, double min, double max)
+{
+	if (x < min)
+		return (min);
+	if (x > max)
+		return (max);
+	return (x);
 }

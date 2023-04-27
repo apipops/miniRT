@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 15:04:58 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 17:22:01 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ void	display_ray(t_data *data);
 int		handle_keypress(int keysym, t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 bool	hit_anything(t_ray r, t_vec2 limit, t_hit_rec *rec);
+
+
+/* MATH */
+double	cal_cos(int a);
+double	cal_sin(int a);
+double	ft_abs(double a);
+int		ft_sign(int a);
+double	ft_clamp(double x, double min, double max);
 
 /* VEC3 UTILS*/
 double	vec3_dot(t_vec3 a, t_vec3 b);

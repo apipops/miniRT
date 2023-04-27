@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:40:22 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 13:20:49 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 15:17:06 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(void)
 	data.horizontal = (t_vec3){data.viewport_width, 0, 0};
 	data.vertical = (t_vec3){0, data.viewport_height, 0};
 	data.corner = calculate_lower_left_corner(data);
+	data.samp_per_pix = 100;
 
 	// Render & loop
 	mlx_loop_hook(data.mlx_ptr, &display, &data);

@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 14:56:27 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 15:16:57 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct s_data
 	t_vec3		horizontal;
 	t_vec3		vertical;
 	t_vec3		corner;
+	int			samp_per_pix;
 }	t_data;
 
 #endif

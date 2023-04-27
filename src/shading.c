@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:38:13 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 15:21:00 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 16:55:11 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,15 @@ t_shade	get_opp_color(t_shade color)
 
 int	get_color(t_vec3 color)
 {
-	int	new_color;
+	//double	scale;
+	int		new_color;
 
+/* 	scale = 1 / data.samp_per_pix;
+	color.xyz *= scale;
+	color.x *= 255.999 * ft_clamp(color.x, 0, 0.999);
+	color.y *= 255.999 * ft_clamp(color.y, 0, 0.999);
+	color.z *= 255.999 * ft_clamp(color.z, 0, 0.999); */
+	color.xyz *= 255.999;
 	new_color = (((int)color.x & 0x0ff) << 16)
 		| (((int)color.y & 0x0ff) << 8) | ((int)color.z & 0x0ff);
 	return (new_color);

@@ -6,14 +6,14 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 11:47:10 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 15:04:58 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROTO_H
 # define PROTO_H
 
-t_vec3	calculate_lower_left_corner(t_data data);
+t_vec3	calculate_corner(t_data data);
 int		close_window(t_data *data);
 int		display(t_data *data);
 void	display_background(t_img *img);
@@ -25,22 +25,19 @@ bool	hit_anything(t_ray r, t_vec2 limit, t_hit_rec *rec);
 /* VEC3 UTILS*/
 double	vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec3_unit_vector(t_vec3 a);
-t_vec3	vec3_mult(t_vec3 vec, double a);
-t_vec3	vec3_div(t_vec3 vec, double a);
-t_vec3	vec3_add(t_vec3 a, t_vec3 b);
-t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 
 /* RAY UTILS*/
 void	set_face_normal(t_ray r, t_vec3 out_normal, t_hit_rec *rec);
-t_vec3	vec3_at(t_ray ray, double t);
+t_vec3	ray_at(t_ray ray, double t);
+t_ray	get_ray(double u, double v, t_data data);
 
 /* SHADING */
 int		get_color(t_vec3 color);
 int		define_color(t_ray r, t_vec2 limit);
 
 /* SPHERE */
-bool	hit_sphere(t_vec3 center, double radius, t_ray r, t_vec2 limit, t_hit_rec *rec);
+bool	hit_sphere(t_vec3 center, double rad, t_ray r, t_vec2 limit, t_hit_rec *rec);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 11:48:19 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 15:06:45 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,7 @@ int	define_color(t_ray r, t_vec2 limit)
 	t_hit_rec	rec;
 
 	if (hit_anything(r, limit, &rec))
-	{
-		normal.x = 255.999 * (0.5 * (rec.normal.x + 1));
-		normal.y = 255.999 * (0.5 * (rec.normal.y + 1));
-		normal.z = 255.999 * (0.5 * (rec.normal.z + 1));
-	}
+		normal.xyz = 255.999 * (0.5 * (rec.normal.xyz + 1));
 	else
 	{
 		normal = vec3_unit_vector(r.direction);
@@ -61,15 +57,6 @@ int	define_color(t_ray r, t_vec2 limit)
 		normal.z = 255.999 * ((1 - t) + (t * 1));
 	}
 	return (get_color(normal));
-}
-
-void	set_face_normal(t_ray r, t_vec3 out_normal, t_hit_rec *rec)
-{
-	rec->front_face = (vec3_dot(r.direction, out_normal) < 0);
-	if (rec->front_face)
-		rec->normal = out_normal;
-	else
-		rec->normal = vec3_mult(out_normal, -1);
 }
 
 bool	hit_anything(t_ray r, t_vec2 limit, t_hit_rec *rec)
@@ -86,7 +73,7 @@ bool	hit_anything(t_ray r, t_vec2 limit, t_hit_rec *rec)
 		closest_so_far = temp_rec.t;
 		*rec = temp_rec;
 	}
-	if (hit_sphere((t_vec3){0, -100.5, -1}, 100, r, (t_vec2){limit.x, closest_so_far}, &temp_rec))
+	if (hit_sphere((t_vec3){-1, 0, -1}, 0.5, r, (t_vec2){limit.x, closest_so_far}, &temp_rec))
 	{
 		hit_anything = true;
 		closest_so_far = temp_rec.t;
@@ -105,7 +92,6 @@ void	display_ray(t_data *data)
 	t_ray		r;
 	int			color;
 
-	r.origin = data->origin;
 	j = 0;
 	while (j < HEIGHT)
 	{
@@ -114,11 +100,9 @@ void	display_ray(t_data *data)
 		{
 			u = (double)i / (WIDTH - 1);
 			v = (double)j / (HEIGHT - 1);
-			r.direction.x = data->lower_left_corner.x + u * data->horizontal.x + v * data->vertical.x - data->origin.x;
-			r.direction.y = data->lower_left_corner.y + u * data->horizontal.y + v * data->vertical.y - data->origin.y;
-			r.direction.z = data->lower_left_corner.z + u * data->horizontal.z + v * data->vertical.z - data->origin.z;
+			r = get_ray(u, v, *data);
 			color = define_color(r, (t_vec2){0, INFINITY});
-				img_pix_put(&data->img, i, HEIGHT - j - 1, color);
+			img_pix_put(&data->img, i, HEIGHT - j - 1, color);
 			i++;
 		}
 		j++;

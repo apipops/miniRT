@@ -3,6 +3,7 @@ NAME = miniRT
 SRC = src/display.c \
 	src/hooks.c \
 	src/vec3_utils.c \
+	src/ray_utils.c \
 	src/shading.c \
 	src/sphere.c \
 	src/main.c \
@@ -12,7 +13,9 @@ OBJ = $(SRC:.c=.o)
 INCLUDES = includes/params.h \
 	includes/proto.h
 
-CC = gcc
+CC = cc 
+
+FLAGS = -Wall -Wextra -Werror -mavx
 
 MACOS = miniRT_macos
 
@@ -37,18 +40,18 @@ macos: $(MACOS)
 
 # A commenter si on utilise macos
 %.o: %.c
-	@$(CC) -Wall -Wextra -Werror -g -I./includes -I./libft -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	@$(CC) $(FLAGS) -g -I./includes -I./libft -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(NAME): $(OBJ) $(LIBFT) $(INCLUDES)
-	@$(CC) $(OBJ) -L$(LIBFTDIR) -g -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	@$(CC) $(OBJ) $(FLAGS) -L$(LIBFTDIR) -g -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 	@printf "$(YELLOW)------Compilation executed------\n\n"
 
 # A decommenter si on ulitise macos
 #%.o: %.c
-#	@$(CC) -Wall -Wextra -Werror -Imlx_macos -I./libft -I/opt/X11/include -c $< -o $@
+#	@$(CC) $(FLAGS) -Imlx_macos -I./libft -I/opt/X11/include -c $< -o $@
 
 $(MACOS): $(OBJ) $(LIBFT) $(INCLUDES)
-	@$(CC) $(OBJ) -L$(LIBFTDIR) -lft -Lmlx_macos -lmlx_macos -framework OpenGL -framework AppKit -o $(MACOS)
+	@$(CC) $(OBJ) $(FLAGS) -L$(LIBFTDIR) -lft -Lmlx_macos -lmlx_macos -framework OpenGL -framework AppKit -o $(MACOS)
 	@printf "$(YELLOW)------Compilation executed------\n\n"
 
 

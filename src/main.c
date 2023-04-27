@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:40:22 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 12:09:41 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 13:20:49 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	main(void)
 
 	// Initialization data
 	data.aspect_ratio = (double)WIDTH / (double)HEIGHT;
-	data.viewport_height = 4;
+	data.viewport_height = 2;
 	data.viewport_width = data.viewport_height * data.aspect_ratio;
-	data.focal_length = 2;
+	data.focal_length = 1;
 	data.origin = (t_vec3){0, 0, 0};
 	data.horizontal = (t_vec3){data.viewport_width, 0, 0};
 	data.vertical = (t_vec3){0, data.viewport_height, 0};
-	data.lower_left_corner = calculate_lower_left_corner(data);
+	data.corner = calculate_lower_left_corner(data);
 
 	// Render & loop
 	mlx_loop_hook(data.mlx_ptr, &display, &data);

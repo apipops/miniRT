@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 12:48:17 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 16:42:28 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 15:03:22 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ t_vec3	vec3_unit_vector(t_vec3 a)
 	double	length;
 
 	length = sqrt(vec3_dot(a, a));
-	return (vec3_div(a, length));
+	return (a.xyz / length);
 }
 
+/* 
 t_vec3	vec3_mult(t_vec3 vec, double a)
 {
 	t_vec3	result;
@@ -34,6 +35,7 @@ t_vec3	vec3_mult(t_vec3 vec, double a)
 	result.x = a * vec.x;
 	result.y = a * vec.y;
 	result.z = a * vec.z;
+	//result.xyz = a * vec.yxz
 	return (result);
 }
 
@@ -44,6 +46,7 @@ t_vec3	vec3_div(t_vec3 vec, double a)
 	result.x = vec.x / a;
 	result.y = vec.y / a;
 	result.z = vec.z / a;
+	//result.xyz = vec.xyz / a;
 	return (result);
 }
 
@@ -65,7 +68,7 @@ t_vec3	vec3_sub(t_vec3 a, t_vec3 b)
 	result.y = a.y - b.y;
 	result.z = a.z - b.z;
 	return (result);
-}
+} */
 
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 {
@@ -74,13 +77,6 @@ t_vec3	vec3_cross(t_vec3 a, t_vec3 b)
 	result.x = a.y * b.z - a.z * b.y;
 	result.y = a.z * b.x - a.x * b.z;
 	result.z = a.x * b.y - a.y * b.x;
+	//result.xyz = a.yzx * b.zxy - a.zxy * b.yzx;
 	return (result);
-}
-
-t_vec3	vec3_at(t_ray ray, double t)
-{
-	t_vec3	multidir;
-
-	multidir = vec3_mult(ray.direction, t);
-	return (vec3_add(ray.origin, multidir));
 }

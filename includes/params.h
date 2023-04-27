@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 11:35:54 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/27 14:56:27 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
 
+typedef double	t_vec3	__attribute__((ext_vector_type(3)));
+typedef double	t_vec2	__attribute__((ext_vector_type(2)));
+
 typedef struct s_img
 {
 	void	*mlx_img;
@@ -73,6 +76,7 @@ typedef struct s_shade
 	double	b;
 }	t_shade;
 
+/* 
 typedef struct s_vec2
 {
 	double	x;
@@ -85,6 +89,7 @@ typedef struct s_vec3
 	double	y;
 	double	z;
 }	t_vec3;
+ */
 
 typedef struct s_ray
 {
@@ -113,7 +118,7 @@ typedef struct s_data
 	t_vec3		origin;
 	t_vec3		horizontal;
 	t_vec3		vertical;
-	t_vec3		lower_left_corner;
+	t_vec3		corner;
 }	t_data;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/04/28 14:20:31 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/28 15:00:42 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		define_color(t_ray r, t_vec2 limit);
 bool	hit_sphere(t_vec3 center, double rad, t_ray r, t_vec2 limit, t_hit_rec *rec);
 
 /* LIGTHS */
+t_vec3	get_ambiant_light(t_amb_ligth light, t_vec3 obj_col);
 t_vec3	get_direct_light(t_hit_rec rec, t_dir_ligth light, t_vec3 obj_col);
 
 

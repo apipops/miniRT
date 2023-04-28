@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/28 12:57:39 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/28 15:05:15 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,22 @@ void	display_background(t_img *img)
 
 int	define_color(t_ray r, t_vec2 limit)
 {
-	t_dir_ligth	light;
+	t_dir_ligth	dir_light;
+	t_amb_ligth	amb_light;
 	t_vec3		obj_color;
 	t_vec3		color;
 	double		t;
 	t_hit_rec	rec;
 
-	light.position = (t_vec3){-1, 0, -1};
-	light.color = (t_vec3){1, 1, 0};
-	light.intensity = 1;
-	obj_color = (t_vec3){1, 0, 0};
+	dir_light.position = (t_vec3){-1, 0, -1};
+	dir_light.color = (t_vec3){1, 0, 1};
+	dir_light.intensity = 1;
+	amb_light.color = (t_vec3){1, 1, 1};
+	amb_light.intensity = 0.5;
+	obj_color = (t_vec3){0.75, 0, 1};
 	if (hit_anything(r, limit, &rec))
 	{
-		color = get_direct_light(rec, light, obj_color);
+		color.xyz = (get_direct_light(rec, dir_light, obj_color).xyz + get_ambiant_light(amb_light, obj_color).xyz)/ 2;
 	}
 	else
 	{

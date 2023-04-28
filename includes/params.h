@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/28 14:35:10 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/28 16:26:04 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <mlx.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <limits.h>
+# include <float.h>
 
 /* A commenter pour macos */
 # include <X11/X.h>

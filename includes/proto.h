@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/04/28 15:00:42 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/28 16:03:43 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 void	set_face_normal(t_ray r, t_vec3 out_normal, t_hit_rec *rec);
 t_vec3	ray_at(t_ray ray, double t);
 t_ray	get_ray(double u, double v, t_data data);
+t_ray	get_shadow_ray(t_hit_rec rec, t_dir_ligth light);
 
 /* SHADING */
 int		get_color(t_vec3 color);

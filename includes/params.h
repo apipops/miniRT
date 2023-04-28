@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/28 16:26:04 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/28 17:38:38 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_hit_record
 	t_vec3	normal;
 	double	t;
 	bool	front_face;
+	int		obj_id;
 }	t_hit_rec;
 
 typedef struct s_data

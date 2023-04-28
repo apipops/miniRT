@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 10:54:22 by avast             #+#    #+#             */
-/*   Updated: 2023/04/28 16:30:17 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/28 17:40:58 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,12 @@ bool	hit_sphere(t_vec3 center, double radius, t_ray r, t_vec2 limit, t_hit_rec *
 		out_normal = (rec->p.xyz - center.xyz) / radius;
 		set_face_normal(r, out_normal, rec);
 	}
+	return (true);
+}
+
+// tester d'exclure l'objet concerne
+bool	hit_sphere_shadow(t_vec3 center, double radius, t_ray r, t_vec2 limit, t_hit_rec *rec)
+{
+	if (rec->obj_id == 1)
 	return (true);
 }

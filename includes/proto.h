@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 17:22:01 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/28 14:20:31 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ double	cal_cos(int a);
 double	cal_sin(int a);
 double	ft_abs(double a);
 int		ft_sign(int a);
-double	ft_clamp(double x, double min, double max);
+double	ft_positive(double x);
+double	deg_to_rad(double a);
 
 /* VEC3 UTILS*/
 double	vec3_dot(t_vec3 a, t_vec3 b);
@@ -46,6 +47,9 @@ int		define_color(t_ray r, t_vec2 limit);
 
 /* SPHERE */
 bool	hit_sphere(t_vec3 center, double rad, t_ray r, t_vec2 limit, t_hit_rec *rec);
+
+/* LIGTHS */
+t_vec3	get_direct_light(t_hit_rec rec, t_dir_ligth light, t_vec3 obj_col);
 
 
 #endif

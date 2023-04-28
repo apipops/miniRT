@@ -1,2 +1,0 @@
-typedef double			t_luno3f	__attribute__((ext_vector_type(3)));
-typedef int				t_luno2i	__attribute__((ext_vector_type(2)));

@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 15:16:57 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/28 12:29:42 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,6 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct s_shade
-{
-	double	r;
-	double	g;
-	double	b;
-}	t_shade;
-
-/* 
-typedef struct s_vec2
-{
-	double	x;
-	double	y;
-}	t_vec2;
-
-typedef struct s_vec3
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_vec3;
- */
 
 typedef struct s_ray
 {
@@ -97,6 +76,12 @@ typedef struct s_ray
 	t_vec3	direction;
 }	t_ray;
 
+typedef struct s_dir_ligth
+{
+	t_vec3	position;
+	double	intensity;
+	t_vec3	color;
+}	t_dir_ligth;
 
 typedef struct s_hit_record
 {

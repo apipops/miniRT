@@ -5,6 +5,7 @@ SRC = src/display.c \
 	src/vec3_utils.c \
 	src/math.c \
 	src/ray_utils.c \
+	src/lights.c \
 	src/shading.c \
 	src/sphere.c \
 	src/main.c \

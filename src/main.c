@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:40:22 by avast             #+#    #+#             */
-/*   Updated: 2023/04/27 15:17:06 by avast            ###   ########.fr       */
+/*   Updated: 2023/04/28 14:25:27 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_vec3	calculate_lower_left_corner(t_data data)
 int	main(void)
 {
 	t_data		data;
+	double		fov;
 
 	// Initialization mlx items
 	data.mlx_ptr = mlx_init();
@@ -40,10 +41,11 @@ int	main(void)
 			&data.img.line_len, &data.img.endian);
 
 	// Initialization data
+	fov = deg_to_rad(100);
 	data.aspect_ratio = (double)WIDTH / (double)HEIGHT;
-	data.viewport_height = 2;
-	data.viewport_width = data.viewport_height * data.aspect_ratio;
 	data.focal_length = 1;
+	data.viewport_height = 2 * data.focal_length * tan(fov / 2);
+	data.viewport_width = data.viewport_height * data.aspect_ratio;
 	data.origin = (t_vec3){0, 0, 0};
 	data.horizontal = (t_vec3){data.viewport_width, 0, 0};
 	data.vertical = (t_vec3){0, data.viewport_height, 0};

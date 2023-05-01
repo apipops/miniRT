@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/28 17:39:16 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/01 15:35:07 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	is_in_shadow(t_hit_rec rec, t_dir_ligth dir_light)
 	in_shadow = false;
 	//if (rec.t)
 	// Normalement on fera deux boucles pour tester tous les rayons lumineux et tous les objets
-	if (hit_anything(get_shadow_ray(rec, dir_light), (t_vec2){0, INFINITY}, NULL))
+	if (hit_sphere_shadow(get_shadow_ray(rec, dir_light), rec))
 		in_shadow = true;
 	return (in_shadow);
 }
@@ -62,17 +62,17 @@ int	define_color(t_ray r, t_vec2 limit)
 	t_vec3		color;
 	t_hit_rec	rec;
 
-	dir_light.position = (t_vec3){-10, 10, -1};
+	dir_light.position = (t_vec3){0, 100, -1};
 	dir_light.color = (t_vec3){1, 1, 1};
 	dir_light.intensity = 1;
-	amb_light.color = (t_vec3){0, 0, 0};
-	amb_light.intensity = 1;
-	obj_color = (t_vec3){1, 1, 1};
+	amb_light.color = (t_vec3){1, 1, 1};
+	amb_light.intensity = 0.5;
+	obj_color = (t_vec3){0.75, 0, 1};
 	if (hit_anything(r, limit, &rec))
 	{
   		if (is_in_shadow(rec, dir_light))
-			//color = get_ambiant_light(amb_light, obj_color);
-			color = (t_vec3){1, 0, 0};
+			color = get_ambiant_light(amb_light, obj_color);
+			//color = (t_vec3){1, 0, 0};
 		else
 			color.xyz = (get_direct_light(rec, dir_light, obj_color).xyz + get_ambiant_light(amb_light, obj_color).xyz) / 2;
 	}
@@ -96,7 +96,7 @@ bool	hit_anything(t_ray r, t_vec2 limit, t_hit_rec *rec)
 		hit_anything = true;
 		if (rec) // cas ou on calcule un rayon et non pas un shadow rayon
 		{
-			rec->obj_id = 1;
+			temp_rec.obj_id = 1;
 			closest_so_far = temp_rec.t;
 				*rec = temp_rec;
 		}
@@ -106,7 +106,7 @@ bool	hit_anything(t_ray r, t_vec2 limit, t_hit_rec *rec)
 		hit_anything = true;
 		if (rec) // cas ou on calcule un rayon et non pas un shadow rayon
 		{
-			rec->obj_id = 2;
+			temp_rec.obj_id = 2;
 			closest_so_far = temp_rec.t;
 				*rec = temp_rec;
 		}

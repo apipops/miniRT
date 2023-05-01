@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/04/28 17:38:38 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/01 15:18:07 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@
 # include <float.h>
 
 /* A commenter pour macos */
-# include <X11/X.h>
-# include <X11/keysym.h>
+/* # include <X11/X.h>
+# include <X11/keysym.h> */
 
 /* A decommenter pour macos */
-/* # define XK_space 49
+# define XK_space 49
 # define XK_2 19
 # define XK_1 18
 # define XK_c 8
@@ -47,7 +47,7 @@
 # define KeyPress 02
 # define KeyPressMask (1L<<0)
 # define ButtonPress 04
-# define ButtonPressMask (1L<<2) */
+# define ButtonPressMask (1L<<2)
 
 # define WIDTH 1000
 # define HEIGHT 600

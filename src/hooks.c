@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:30:54 by avast             #+#    #+#             */
-/*   Updated: 2023/04/26 11:38:39 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/01 15:19:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	close_window(t_data *data)
 	data->win_ptr = 0;
 	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
 	/* Ligne a commenter pour macos */
-	mlx_destroy_display(data->mlx_ptr);
+	//mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	exit (0);
 }

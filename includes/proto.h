@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/05/01 15:27:01 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/01 17:09:07 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ double	deg_to_rad(double a);
 
 /* VEC3 UTILS*/
 double	vec3_dot(t_vec3 a, t_vec3 b);
-t_vec3	vec3_unit_vector(t_vec3 a);
+t_vec3	vec3_normalize(t_vec3 a);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 
 /* RAY UTILS*/

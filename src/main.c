@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:40:22 by avast             #+#    #+#             */
-/*   Updated: 2023/04/28 14:56:51 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/01 18:29:03 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ t_vec3	calculate_lower_left_corner(t_data data)
 {
 	t_vec3	corner;
 
-	corner.x = data.origin.x - data.horizontal.x / 2 - data.vertical.x / 2;
-	corner.y = data.origin.y - data.horizontal.y / 2 - data.vertical.y / 2;
-	corner.z = data.origin.z - data.horizontal.z / 2 - data.vertical.z / 2 - data.focal_length;
+	corner.xyz = data.origin.xyz + data.direction.xyz - data.horizontal.xyz / 2 - data.vertical.xyz / 2;
 	return (corner);
 }
 
@@ -41,14 +39,15 @@ int	main(void)
 			&data.img.line_len, &data.img.endian);
 
 	// Initialization data
-	fov = deg_to_rad(100);
+	fov = deg_to_rad(75);
 	data.aspect_ratio = (double)WIDTH / (double)HEIGHT;
 	data.focal_length = 1;
 	data.viewport_height = 2 * data.focal_length * tan(fov / 2);
 	data.viewport_width = data.viewport_height * data.aspect_ratio;
-	data.origin = (t_vec3){0, 0, 0};
-	data.horizontal = (t_vec3){data.viewport_width, 0, 0};
-	data.vertical = (t_vec3){0, data.viewport_height, 0};
+	data.origin = (t_vec3){0, 0, 1};
+	data.direction = vec3_normalize((t_vec3){0, 0, -1});
+	data.horizontal = data.viewport_width * vec3_normalize(vec3_cross(data.direction, (t_vec3){0, 1, 0}));
+	data.vertical = data.viewport_height * vec3_normalize(vec3_cross(data.direction, data.horizontal));
 	data.corner = calculate_lower_left_corner(data);
 
 	// Render & loop

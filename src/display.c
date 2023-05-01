@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/05/01 15:35:07 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/01 18:13:05 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	display_ray(t_data *data)
 			v = (double)j / (HEIGHT - 1);
 			r = get_ray(u, v, *data);
 			color = define_color(r, (t_vec2){0, INFINITY});
-			img_pix_put(&data->img, i, HEIGHT - j - 1, color);
+			img_pix_put(&data->img, i, j, color);
 			i++;
 		}
 		j++;

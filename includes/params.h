@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/05/01 15:18:07 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/01 17:06:19 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_data
 	double		viewport_width;
 	double		focal_length;
 	t_vec3		origin;
+	t_vec3		direction;
 	t_vec3		horizontal;
 	t_vec3		vertical;
 	t_vec3		corner;

@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:20:31 by avast             #+#    #+#             */
-/*   Updated: 2023/05/02 11:26:59 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/02 11:33:58 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_vec3	get_spec_light(t_vec3 camera, t_hit_rec rec, t_dir_ligth light, t_vec3 ob
 	if (dot < 0)
 		color.xyz = 0;
 	else
-		color.xyz = light.intensity * pow(dot, 50) * light.color.xyz * ((1 - 0.7)
-			* obj_col.xyz + 0.7);
+		color.xyz = light.intensity * pow(dot, 23) * light.color.xyz * ((1 - 0.5)
+			* obj_col.xyz + 0.5);
 	return (color);
 }

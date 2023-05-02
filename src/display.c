@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/05/01 18:13:05 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/02 11:28:41 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	is_in_shadow(t_hit_rec rec, t_dir_ligth dir_light)
 	return (in_shadow);
 }
 
-int	define_color(t_ray r, t_vec2 limit)
+int	define_color(t_data *data, t_ray r, t_vec2 limit)
 {
 	t_dir_ligth	dir_light;
 	t_amb_ligth	amb_light;
@@ -68,13 +68,17 @@ int	define_color(t_ray r, t_vec2 limit)
 	amb_light.color = (t_vec3){1, 1, 1};
 	amb_light.intensity = 0.5;
 	obj_color = (t_vec3){0.75, 0, 1};
+	(void)data;
 	if (hit_anything(r, limit, &rec))
 	{
   		if (is_in_shadow(rec, dir_light))
-			color = get_ambiant_light(amb_light, obj_color);
-			//color = (t_vec3){1, 0, 0};
+			color = get_ambiant_light(amb_light, obj_color) / 3;
+			//color = (t_vec3){0, 0, 0};
 		else
-			color.xyz = (get_direct_light(rec, dir_light, obj_color).xyz + get_ambiant_light(amb_light, obj_color).xyz) / 2;
+ 			color.xyz = (get_direct_light(rec, dir_light, obj_color).xyz
+					+ get_ambiant_light(amb_light, obj_color).xyz
+					+ get_spec_light(data->origin, rec, dir_light, obj_color)) / 3;
+			//color = (t_vec3){1, 0, 0};
 	}
 	else
 	{
@@ -133,7 +137,7 @@ void	display_ray(t_data *data)
 			u = (double)i / (WIDTH - 1);
 			v = (double)j / (HEIGHT - 1);
 			r = get_ray(u, v, *data);
-			color = define_color(r, (t_vec2){0, INFINITY});
+			color = define_color(data, r, (t_vec2){0, INFINITY});
 			img_pix_put(&data->img, i, j, color);
 			i++;
 		}

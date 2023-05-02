@@ -43,16 +43,16 @@ all: $(NAME)
 macos: $(MACOS)
 
 # A commenter si on utilise macos
-#%.o: %.c
-#	@$(CC) $(FLAGS) -g -I./includes -I./libft -I/usr/include -Imlx_linux -O3 -c $< -o $@
+%.o: %.c
+	@$(CC) $(FLAGS) $(FLAG_MAVX) -g -I./includes -I./libft -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(NAME): $(OBJ) $(LIBFT) $(INCLUDES)
-	@$(CC) $(OBJ) $(FLAGS) -L$(LIBFTDIR) -g -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	@$(CC) $(OBJ) $(FLAGS) $(FLAG_MAVX) -L$(LIBFTDIR) -g -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 	@printf "$(YELLOW)------Compilation executed------\n\n"
 
 # A decommenter si on ulitise macos
-%.o: %.c
-	@$(CC) $(FLAGS) -Imlx_macos -I./libft -I/opt/X11/include -c $< -o $@
+#%.o: %.c
+#	@$(CC) $(FLAGS) -Imlx_macos -I./libft -I/opt/X11/include -c $< -o $@
 
 $(MACOS): $(OBJ) $(LIBFT) $(INCLUDES)
 	@$(CC) $(OBJ) $(FLAGS) -L$(LIBFTDIR) -lft -Lmlx_macos -lmlx_macos -framework OpenGL -framework AppKit -o $(MACOS)

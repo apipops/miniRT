@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/05/02 11:45:42 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/02 12:25:48 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,33 @@ bool	is_in_shadow(t_hit_rec rec, t_dir_ligth dir_light)
 int	define_color(t_data *data, t_ray r, t_vec2 limit)
 {
 	t_dir_ligth	dir_light;
+	t_dir_ligth	dir_light2;
 	t_amb_ligth	amb_light;
 	t_vec3		obj_color;
 	t_vec3		color;
 	t_hit_rec	rec;
 
-	dir_light.position = (t_vec3){0, 100, -1};
-	dir_light.color = (t_vec3){1, 1, 1};
+	dir_light.position = (t_vec3){30, 2, -1};
+	dir_light.color = (t_vec3){0, 0, 1};
 	dir_light.intensity = 1;
+	dir_light2.position = (t_vec3){-70, 50, -1};
+	dir_light2.color = (t_vec3){1, 0, 0};
+	dir_light2.intensity = 1;
 	amb_light.color = (t_vec3){1, 1, 1};
-	amb_light.intensity = 0.5;
-	obj_color = (t_vec3){0.75, 0, 1};
+	amb_light.intensity = 0;
+	obj_color = (t_vec3){1, 1, 1};
 	(void)data;
 	if (hit_anything(r, limit, &rec))
 	{
-  		if (is_in_shadow(rec, dir_light))
+  		if (is_in_shadow(rec, dir_light) || is_in_shadow(rec, dir_light2))
 			color = get_ambiant_light(amb_light, obj_color) / 3;
 			//color = (t_vec3){0, 0, 0};
 		else
- 			color.xyz = (get_direct_light(rec, dir_light, obj_color).xyz
+			// il faudra verifier comment combiner les couleurs : on additionne ou on pondere
+ 			color.xyz = (((get_direct_light(rec, dir_light, obj_color).xyz + get_direct_light(rec, dir_light2, obj_color)) / 2)
 					+ get_ambiant_light(amb_light, obj_color).xyz
-					+ get_spec_light(data->origin, rec, dir_light, obj_color)) / 3;
-			//color = (t_vec3){1, 0, 0};
+					+ (get_spec_light(data->origin, rec, dir_light, obj_color) + get_spec_light(data->origin, rec, dir_light2, obj_color))/ 2) / 3;
+			//color = (t_vec3){1, 0, 0}
 	}
 	else
 	{

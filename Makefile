@@ -8,6 +8,7 @@ SRC = src/display.c \
 	src/lights.c \
 	src/shading.c \
 	src/sphere.c \
+	src/plan.c \
 	src/main.c \
 
 OBJ = $(SRC:.c=.o)

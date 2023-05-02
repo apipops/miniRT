@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 10:54:22 by avast             #+#    #+#             */
-/*   Updated: 2023/05/02 11:59:58 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/02 17:36:05 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,19 @@ void	set_sphere_hit_rec(t_ray r, double t, double rad, t_vec3 center, t_hit_rec 
 // tester d'exclure l'objet concerne
 bool	hit_sphere_shadow(t_ray r, t_hit_rec rec)
 {
-	if (rec.obj_id == 2)
+	if (rec.obj_id == 2 || rec.obj_id == 3)
 	{
 		if (hit_sphere((t_vec3){0, 0, -1}, 0.5, r, (t_vec2){0, INFINITY}, NULL))
 			return (true);
 		else
 			return (false);
 	}
-	else
+	else if (rec.obj_id == 1 || rec.obj_id == 3)
 	{
 		if (hit_sphere((t_vec3){0, -100.5, -1}, 100, r, (t_vec2){0, INFINITY}, NULL))
 			return (true);
 		else
 			return (false);
 	}
+	return (false);
 }

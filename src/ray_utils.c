@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:59:55 by avast             #+#    #+#             */
-/*   Updated: 2023/05/02 11:52:23 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/02 12:33:10 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_ray	get_ray(double u, double v, t_data data)
 	t_ray	ray;
 
 	ray.origin = data.origin;
-	ray.direction.xyz = vec3_normalize(data.corner.xyz + u * data.horizontal.xyz + v * data.vertical.xyz - data.origin.xyz);
+	ray.direction.xyz = vec3_normalize(data.corner.xyz + u * data.horizontal.xyz
+			+ v * data.vertical.xyz - data.origin.xyz);
 	return (ray);
 }
 

@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/05/02 11:58:42 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/02 13:21:50 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ int		define_color(t_data *data, t_ray r, t_vec2 limit);
 bool	hit_sphere(t_vec3 center, double rad, t_ray r, t_vec2 limit, t_hit_rec *rec);
 void	set_sphere_hit_rec(t_ray r, double t, double rad, t_vec3 center, t_hit_rec *rec);
 bool	hit_sphere_shadow(t_ray r, t_hit_rec rec);
+
+/* PLAN */
+bool	hit_plan(t_vec3 point, t_vec3 orient, t_ray r, t_vec2 limit, t_hit_rec *rec);
+bool	hit_plan_shadow(t_ray r, t_hit_rec rec);
 
 /* LIGTHS */
 t_vec3	get_ambiant_light(t_amb_ligth light, t_vec3 obj_col);

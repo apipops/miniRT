@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/05/02 12:25:48 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/02 18:17:24 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,17 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void	display_background(t_img *img)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < HEIGHT)
-	{
-		j = 0;
-		while (j < WIDTH)
-		{
-			img_pix_put(img, j, i, BLACK);
-			j++;
-		}
-		++i;
-	}
-}
-
 // on aura la liste de toutes les lumieres diffuses et des objets
 bool	is_in_shadow(t_hit_rec rec, t_dir_ligth dir_light)
 {
-	bool	in_shadow;
-	//double	min;
 
-	in_shadow = false;
 	//if (rec.t)
 	// Normalement on fera deux boucles pour tester tous les rayons lumineux et tous les objets
 	if (hit_sphere_shadow(get_shadow_ray(rec, dir_light), rec))
-		in_shadow = true;
-	return (in_shadow);
+		return (true);
+	if (hit_plan_shadow(get_shadow_ray(rec, dir_light), rec))
+		return (true);
+	return (false);
 }
 
 int	define_color(t_data *data, t_ray r, t_vec2 limit)
@@ -70,20 +51,20 @@ int	define_color(t_data *data, t_ray r, t_vec2 limit)
 	dir_light2.color = (t_vec3){1, 0, 0};
 	dir_light2.intensity = 1;
 	amb_light.color = (t_vec3){1, 1, 1};
-	amb_light.intensity = 0;
+	amb_light.intensity = 0.5;
 	obj_color = (t_vec3){1, 1, 1};
 	(void)data;
 	if (hit_anything(r, limit, &rec))
 	{
-  		if (is_in_shadow(rec, dir_light) || is_in_shadow(rec, dir_light2))
+  		if (is_in_shadow(rec, dir_light) && is_in_shadow(rec, dir_light2))
 			color = get_ambiant_light(amb_light, obj_color) / 3;
-			//color = (t_vec3){0, 0, 0};
+			//color = (t_vec3){1, 0, 0};
 		else
 			// il faudra verifier comment combiner les couleurs : on additionne ou on pondere
  			color.xyz = (((get_direct_light(rec, dir_light, obj_color).xyz + get_direct_light(rec, dir_light2, obj_color)) / 2)
 					+ get_ambiant_light(amb_light, obj_color).xyz
 					+ (get_spec_light(data->origin, rec, dir_light, obj_color) + get_spec_light(data->origin, rec, dir_light2, obj_color))/ 2) / 3;
-			//color = (t_vec3){1, 0, 0}
+		//color = (t_vec3){1, 0, 0};
 	}
 	else
 	{
@@ -110,12 +91,22 @@ bool	hit_anything(t_ray r, t_vec2 limit, t_hit_rec *rec)
 				*rec = temp_rec;
 		}
 	}
-  	if (hit_sphere((t_vec3){0, -100.5, -1}, 100, r, (t_vec2){limit.x, closest_so_far}, &temp_rec))
+   	if (hit_sphere((t_vec3){0, -100.5, -1}, 100, r, (t_vec2){limit.x, closest_so_far}, &temp_rec))
 	{
 		hit_anything = true;
 		if (rec) // cas ou on calcule un rayon et non pas un shadow rayon
 		{
 			temp_rec.obj_id = 2;
+			closest_so_far = temp_rec.t;
+				*rec = temp_rec;
+		}
+	}
+	if (hit_plan((t_vec3){0, -1, -1}, (t_vec3){1, -5, 0}, r, (t_vec2){limit.x, closest_so_far}, &temp_rec))
+	{
+		hit_anything = true;
+		if (rec) // cas ou on calcule un rayon et non pas un shadow rayon
+		{
+			temp_rec.obj_id = 3;
 			closest_so_far = temp_rec.t;
 				*rec = temp_rec;
 		}

@@ -1,15 +1,16 @@
 NAME = miniRT
 
-SRC = src/display.c \
+SRC = src/main.c \
 	src/hooks.c \
-	src/vec3_utils.c \
-	src/math.c \
-	src/ray_utils.c \
+	src/display.c \
+	src/raytracing.c \
 	src/lights.c \
-	src/shading.c \
+	src/plane.c \
 	src/sphere.c \
-	src/plan.c \
-	src/main.c \
+	src/vec3_utils.c \
+	src/ray_utils.c \
+	src/math.c \
+	
 
 OBJ = $(SRC:.c=.o)
 

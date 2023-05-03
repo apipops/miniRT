@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:40:22 by avast             #+#    #+#             */
-/*   Updated: 2023/05/02 11:47:04 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 13:24:47 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,67 @@
 #include "../includes/proto.h"
 #include "../libft/libft.h"
 
-t_vec3	calculate_lower_left_corner(t_data data)
-{
-	t_vec3	corner;
 
-	corner.xyz = data.origin.xyz + data.direction.xyz - data.horizontal.xyz / 2 - data.vertical.xyz / 2;
-	return (corner);
+// lstlast adapled for t_plane struct
+static t_objects	*sp_lstlast(t_objects *lst, int *id)
+{
+	int	i;
+
+	i = 1;
+	while (lst->next != NULL)
+	{
+		i++;
+		lst = lst->next;
+	}
+	*id = i;
+	return (lst);
 }
+
+void	new_node_object(t_elements *elems, int type, int id, t_vec3 origin, t_vec3 orientation, double radius, t_vec3 colors)
+{
+	t_objects	*plst;
+	t_objects	*new_node;
+
+	new_node = malloc(sizeof(t_objects));
+	if (new_node == NULL)
+		perror("malloc");
+	new_node->id = id;
+	new_node->type = type;
+	new_node->origin = origin;
+	new_node->orientation = orientation;
+	new_node->radius = radius;
+	new_node->colors = colors;
+	new_node->next = NULL;
+	plst = elems->objects_head;
+	plst = sp_lstlast(elems->objects_head, &new_node->id);
+	plst->next = new_node;
+}
+
+// normalize les vecteurs
+void	initialize_data(t_data *data, t_elements elem)
+{
+	t_camera	camera;
+
+	elem.camera->orientation = vec3_normalize(elem.camera->orientation);
+	camera = elem.camera;
+	data->elements = elem;
+	data->aspect_ratio = (double)WIDTH / (double)HEIGHT;
+	data->focal_length = 1;
+	data->height = 2 * data->focal_length * tan(deg_to_rad(camera.fov) / 2);
+	data->width = data->height * data->aspect_ratio;
+	data->horizontal = data->width
+		* vec3_normalize(vec3_cross(camera.orientation, (t_vec3){0, 1, 0}));
+	data->vertical = data->height
+		* vec3_normalize(vec3_cross(camera.orientation, data->horizontal));
+	data.corner = camera.origin.xyz + camera.orientation.xyz
+		- data->horizontal.xyz / 2 - data->vertical.xyz / 2;
+}
+
 
 int	main(void)
 {
 	t_data		data;
-	double		fov;
+	t_elements	elem;
 
 	// Initialization mlx items
 	data.mlx_ptr = mlx_init();
@@ -39,16 +88,7 @@ int	main(void)
 			&data.img.line_len, &data.img.endian);
 
 	// Initialization data
-	fov = deg_to_rad(75);
-	data.aspect_ratio = (double)WIDTH / (double)HEIGHT;
-	data.focal_length = 1;
-	data.viewport_height = 2 * data.focal_length * tan(fov / 2);
-	data.viewport_width = data.viewport_height * data.aspect_ratio;
-	data.origin = (t_vec3){0, 0, 1};
-	data.direction = vec3_normalize((t_vec3){0, 0, -1});
-	data.horizontal = data.viewport_width * vec3_normalize(vec3_cross(data.direction, (t_vec3){0, 1, 0}));
-	data.vertical = data.viewport_height * vec3_normalize(vec3_cross(data.direction, data.horizontal));
-	data.corner = calculate_lower_left_corner(data);
+	initialize_data(&data, elem);
 
 	// Render & loop
 	mlx_loop_hook(data.mlx_ptr, &display, &data);

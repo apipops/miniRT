@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/05/02 15:09:57 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 12:51:51 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@
 # define WIDTH 1000
 # define HEIGHT 600
 
+# define ALL_OBJ	-1
+
+# define SPHERE		1
+# define PLANE		2
+# define CYLINDER	3
+
 # define MLX_ERROR 1
 
 # define RED 0xFF0000
@@ -70,7 +76,6 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 }	t_img;
-
 
 typedef struct s_ray
 {
@@ -91,23 +96,61 @@ typedef struct s_amb_light
 	t_vec3	color;
 }	t_amb_ligth;
 
+typedef struct s_ambient {
+	double	ratio;
+	t_vec3	colors;
+}			t_ambient;
+
+typedef struct s_camera {
+	t_vec3	origin;
+	t_vec3	orientation;
+	double	fov;
+}			t_camera;
+
+typedef struct s_light {
+	t_vec3			origin;
+	double			ratio;
+	t_vec3			colors;
+	struct s_light	*next;
+}			t_light;
+
+typedef struct s_objects {
+	int					id;
+	int					type;
+	t_vec3				origin;
+	t_vec3				orientation;
+	double				radius;
+	double				height;
+	t_vec3				colors;
+	struct s_objects	*next;
+}		t_objects;
+
 typedef struct s_hit_record
 {
+	int		obj_id;
+	t_vec3	obj_color;
 	t_vec3	p;
 	t_vec3	normal;
 	double	t;
 	bool	front_face;
-	int		obj_id;
 }	t_hit_rec;
+
+typedef struct s_elements {
+	t_ambient	*ambient;
+	t_camera	*camera;
+	t_light		*lights_head;
+	t_objects	*objects_head;
+}				t_elements;
 
 typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		img;
+	t_elements	elements;
 	double		aspect_ratio;
-	double		viewport_height;
-	double		viewport_width;
+	double		height;
+	double		width;
 	double		focal_length;
 	t_vec3		origin;
 	t_vec3		direction;

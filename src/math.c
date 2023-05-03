@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 18:29:27 by avast             #+#    #+#             */
-/*   Updated: 2023/04/28 14:19:51 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 12:40:37 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,4 @@ int	ft_sign(int a)
 	else if (a > 0)
 		return (1);
 	return (0);
-}
-
-double	ft_positive(double x)
-{
-	if (x < 0)
-		return (0);
-	else
-		return (x);
 }

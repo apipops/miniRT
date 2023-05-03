@@ -6,14 +6,62 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 12:47:19 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROTO_H
 # define PROTO_H
 
-t_vec3	calculate_corner(t_data data);
+
+/* PARSING */
+
+//error ------------------------------------------- //
+void	error(char **to_free, t_elem *elems, int code);
+
+//free -------------------------------------------- //
+void	free_tab(char **tab);
+void	free_structures(t_elem *elems);
+
+//acl_check --------------------------------------- //
+bool	ambient(t_elem *elems, char **params);
+bool	camera(t_elem *elems, char **params);
+bool	light(t_elem *elems, char **params);
+
+//acl_init ---------------------------------------- //
+bool	reinit_ambient(t_elem *elems, char **params);
+bool	reinit_camera(t_elem *elems, char **params);
+bool	reinit_light(t_elem *elems, char **params);
+
+//parse objects ----------------------------------- //
+void	init_object_head(t_elem *elems, char **params, int type);
+void	new_node_object(t_elem *elems, char **params, int type);
+
+//parse cylinders --------------------------------- //
+void	init_cylinder(t_objects *object, char **params);
+bool	cylinder(t_elem *elems, char **params);
+
+//parse planes ------------------------------------ //
+void	init_plane(t_objects *object, char **params);
+bool	plane(t_elem *elems, char **params);
+
+//parse spheres ----------------------------------- //
+void	init_sphere(t_objects *object, char **params);
+bool	sphere(t_elem *elems, char **params);
+
+//parse utils ------------------------------------- //
+t_vec3	colors_to_percent(char **tab);
+
+//parse checks ------------------------------------ //
+bool	invalid_param_number(int code, char **params);
+bool	invalid_chars(char *str);
+bool	not_valid_parameter(char *to_check, float min, float max);
+bool	not_valid_number_of_commas(char *to_check);
+bool	not_valid_range(char *to_check, float min, float max);
+
+/* MLX INIT */
+void	initialize_data(t_data *data, t_elem elem);
+int		initialize_mlx(t_elem *elem, t_data *data);
 
 /* DISPLAY */
 int		display(t_data *data);
@@ -26,38 +74,38 @@ int		handle_keypress(int keysym, t_data *data);
 
 /* RAYTRACING */
 int		define_color(t_data *data, t_ray r);
-bool	hit_anything(t_ray r, t_elements elem, t_hit_rec *rec, int exclu);
-t_vec3	update_color_shadow(t_hit_rec rec, t_elements elem);
+bool	hit_anything(t_ray r, t_elem elem, t_hit_rec *rec, int exclu);
+t_vec3	update_color_shadow(t_hit_rec rec, t_elem elem);
 
 /* LIGTHS */
-t_vec3	get_ambient_light(t_ambient ambient, t_vec3	obj_color);
-t_vec3	get_direct_light(t_hit_rec rec, t_light light, t_vec3 obj_color);
-t_vec3	get_spec_light(t_camera c, t_hit_rec rec, t_light light, t_vec3	col);
+t_vec3	get_ambient_light(t_hit_rec rec, t_ambient ambient);
+t_vec3	get_direct_light(t_hit_rec rec, t_light light);
+t_vec3	get_spec_light(t_camera cam, t_hit_rec rec, t_light light);
 
 /* SPHERE */
 bool	hit_sphere(t_objects sphere, t_ray r, t_vec2 limit, t_hit_rec *rec);
-void	set_sphere_hit_rec(t_ray r, double t, t_objects sphere, t_hit_rec *rec);
+void	set_sphere_hit_rec(t_ray r, float t, t_objects sphere, t_hit_rec *rec);
 bool	hit_sphere_shadow(t_ray r, t_hit_rec rec);
 
 /* PLAN */
 bool	hit_plane(t_objects plane, t_ray r, t_vec2 limit, t_hit_rec *rec);
 
 /* MATH */
-double	cal_cos(int a);
-double	cal_sin(int a);
-double	deg_to_rad(double a);
-double	ft_abs(double a);
+float	cal_cos(int a);
+float	cal_sin(int a);
+float	deg_to_rad(float a);
+float	ft_abs(float a);
 int		ft_sign(int a);
 
 /* VEC3 UTILS*/
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
-double	vec3_dot(t_vec3 a, t_vec3 b);
+float	vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec3_normalize(t_vec3 a);
 
 /* RAY UTILS*/
-t_ray	get_ray(double u, double v, t_data data);
+t_ray	get_ray(float u, float v, t_data data);
 t_ray	get_shadow_ray(t_hit_rec rec, t_light light);
-t_vec3	ray_at(t_ray ray, double t);
+t_vec3	ray_at(t_ray ray, float t);
 void	set_face_normal(t_ray r, t_vec3 out_normal, t_hit_rec *rec);
 
 

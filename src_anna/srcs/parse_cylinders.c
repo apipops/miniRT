@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cylinders.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankhabar <ankhabar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:49:06 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/05/03 13:00:04 by ankhabar         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:01:21 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_cylinder(t_objects *object, char **params)
 		ft_atof(tab[1]), ft_atof(tab[2])};
 	free_tab(tab);
 	tab = ft_split(params[2], ',');
-	object->orientation = (t_vec3){ft_atof(tab[0]),
+	object->dir = (t_vec3){ft_atof(tab[0]),
 		ft_atof(tab[1]), ft_atof(tab[2])};
 	free_tab(tab);
 	object->radius = ft_atof(params[3]) / 2;
@@ -32,7 +32,7 @@ void	init_cylinder(t_objects *object, char **params)
 }
 
 // adds first node via init_object_head function or a new node
-static void	add_node_cylinder(t_elements *elems, char **params)
+static void	add_node_cylinder(t_elem *elems, char **params)
 {
 	if (elems->objects_head == NULL)
 		init_object_head(elems, params, CYLINDER);
@@ -43,7 +43,7 @@ static void	add_node_cylinder(t_elements *elems, char **params)
 // in this function i check every parameter of the line cy
 // if some parameter outranges or has wrong number of parameters
 // this function will exit with failure status
-bool	cylinder(t_elements *elems, char **params)
+bool	cylinder(t_elem *elems, char **params)
 {
 	int	i;
 

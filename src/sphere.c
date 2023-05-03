@@ -6,20 +6,20 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 10:54:22 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 12:22:23 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/params.h"
 #include "../includes/proto.h"
-#include "../libft/libft.h"
+#include "../libft/includes/libft.h"
 
-/* bool	hit_sphere(t_vec3 cent, double rad, t_ray r, t_vec2 limit, t_hit_rec *rec)
+/* bool	hit_sphere(t_vec3 cent, float rad, t_ray r, t_vec2 limit, t_hit_rec *rec)
 {
-	double	a;
-	double	half_b;
-	double	c;
-	double	root;
+	float	a;
+	float	half_b;
+	float	c;
+	float	root;
 
 	a = vec3_dot(r.direction, r.direction);
 	half_b = vec3_dot(r.origin.xyz - cent.xyz, r.direction);
@@ -39,10 +39,10 @@
 
 bool	hit_sphere(t_objects sphere, t_ray r, t_vec2 limit, t_hit_rec *rec)
 {
-	double	a;
-	double	half_b;
-	double	c;
-	double	root;
+	float	a;
+	float	half_b;
+	float	c;
+	float	root;
 
 	a = vec3_dot(r.direction, r.direction);
 	half_b = vec3_dot(r.origin.xyz - sphere.origin.xyz, r.direction);
@@ -61,7 +61,7 @@ bool	hit_sphere(t_objects sphere, t_ray r, t_vec2 limit, t_hit_rec *rec)
 	return (true);
 }
 
-void	set_sphere_hit_rec(t_ray r, double t, t_objects sphere, t_hit_rec *rec)
+void	set_sphere_hit_rec(t_ray r, float t, t_objects sphere, t_hit_rec *rec)
 {
 	t_vec3	outward_normal;
 
@@ -77,7 +77,7 @@ void	set_sphere_hit_rec(t_ray r, double t, t_objects sphere, t_hit_rec *rec)
 }
 
 // tester d'exclure l'objet concerne
-bool	hit_sphere_shadow(t_ray r, t_hit_rec rec)
+/* bool	hit_sphere_shadow(t_ray r, t_hit_rec rec)
 {
 	if (rec.obj_id == 2 || rec.obj_id == 3)
 	{
@@ -95,3 +95,4 @@ bool	hit_sphere_shadow(t_ray r, t_hit_rec rec)
 	}
 	return (false);
 }
+ */

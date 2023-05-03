@@ -6,13 +6,15 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 12:51:51 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARAMS_H
 # define PARAMS_H
 
+# include "../libft/includes/libft.h"
+# include "colors.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
@@ -25,6 +27,7 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <float.h>
+# include <sys/wait.h>
 
 /* A commenter pour macos */
 # include <X11/X.h>
@@ -49,24 +52,25 @@
 # define ButtonPress 04
 # define ButtonPressMask (1L<<2) */
 
+# define ERRCOMMAS	"Too many or not enough commas.\033[0m"
+# define ERRCHAR	"Invalid characters detected.\033[0m"
+# define ERRRANGE	"Invalid range of a parameter.\033[0m"
+# define ERRPARAM	"Invalid number of parameters.\033[0m"
+# define ERRDEF		"You cannot redefine A or C.\033[0m"
+# define ERRITI		1
+# define ERRIPN		2
+# define MLX_ERROR 1
+
 # define WIDTH 1000
 # define HEIGHT 600
 
 # define ALL_OBJ	-1
-
 # define SPHERE		1
 # define PLANE		2
 # define CYLINDER	3
 
-# define MLX_ERROR 1
-
-# define RED 0xFF0000
-# define GREEN 0xFF00
-# define WHITE 0xFFFFFF
-# define BLACK 0x000000
-
-typedef double	t_vec3	__attribute__((ext_vector_type(3)));
-typedef double	t_vec2	__attribute__((ext_vector_type(2)));
+typedef float	t_vec3	__attribute__((ext_vector_type(3)));
+typedef float	t_vec2	__attribute__((ext_vector_type(2)));
 
 typedef struct s_img
 {
@@ -83,33 +87,33 @@ typedef struct s_ray
 	t_vec3	direction;
 }	t_ray;
 
-typedef struct s_dir_ligth
+/* typedef struct s_dir_ligth
 {
 	t_vec3	position;
-	double	intensity;
+	float	intensity;
 	t_vec3	color;
 }	t_dir_ligth;
 
 typedef struct s_amb_light
 {
-	double	intensity;
+	float	intensity;
 	t_vec3	color;
-}	t_amb_ligth;
+}	t_amb_ligth; */
 
 typedef struct s_ambient {
-	double	ratio;
+	float	ratio;
 	t_vec3	colors;
 }			t_ambient;
 
 typedef struct s_camera {
 	t_vec3	origin;
-	t_vec3	orientation;
-	double	fov;
+	t_vec3	dir;
+	float	fov;
 }			t_camera;
 
 typedef struct s_light {
 	t_vec3			origin;
-	double			ratio;
+	float			ratio;
 	t_vec3			colors;
 	struct s_light	*next;
 }			t_light;
@@ -118,9 +122,9 @@ typedef struct s_objects {
 	int					id;
 	int					type;
 	t_vec3				origin;
-	t_vec3				orientation;
-	double				radius;
-	double				height;
+	t_vec3				dir;
+	float				radius;
+	float				height;
 	t_vec3				colors;
 	struct s_objects	*next;
 }		t_objects;
@@ -131,27 +135,29 @@ typedef struct s_hit_record
 	t_vec3	obj_color;
 	t_vec3	p;
 	t_vec3	normal;
-	double	t;
+	float	t;
 	bool	front_face;
 }	t_hit_rec;
 
 typedef struct s_elements {
-	t_ambient	*ambient;
-	t_camera	*camera;
+	t_ambient	ambient;
+	t_camera	camera;
 	t_light		*lights_head;
 	t_objects	*objects_head;
-}				t_elements;
+	int			flag_camera;
+	int			flag_ambient;
+}				t_elem;
 
 typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		img;
-	t_elements	elements;
-	double		aspect_ratio;
-	double		height;
-	double		width;
-	double		focal_length;
+	t_elem		elements;
+	float		aspect_ratio;
+	float		height;
+	float		width;
+	float		focal_length;
 	t_vec3		origin;
 	t_vec3		direction;
 	t_vec3		horizontal;

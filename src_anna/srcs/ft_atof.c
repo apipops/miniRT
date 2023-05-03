@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankhabar <ankhabar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 17:20:38 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/04/27 17:22:47 by ankhabar         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	ft_atof_aux(const char *nptr)
+float	ft_atof_aux(const char *nptr)
 {
-	double	res;
-	double	decimal;
+	float	res;
+	float	decimal;
 
 	res = 0;
 	decimal = 0.1;
@@ -37,9 +37,9 @@ double	ft_atof_aux(const char *nptr)
 	return (res);
 }
 
-double	ft_atof(const char *nptr)
+float	ft_atof(const char *nptr)
 {
-	double	res;
+	float	res;
 	int		sign;
 
 	sign = 1;
@@ -55,20 +55,3 @@ double	ft_atof(const char *nptr)
 	res *= sign;
 	return (res);
 }
-
-// to test ft_atof
-// void	test()
-// {
-// 	int		i;
-// 	char	*temp;
-// 	char	**test;
-
-// 	i = 0;
-// 	temp = "-50.0,0,20";
-// 	test = ft_split(temp, ',');
-// 	while (test[i])
-// 		printf("[%f]\n", ft_atof(test[i++]));
-// 	printf("[%f]\n", ft_atof("5.111"));
-// 	printf("[%f]\n", atof("50.0"));
-// 	printf("[%f]\n", atof("50"));
-// }

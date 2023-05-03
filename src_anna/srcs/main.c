@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankhabar <ankhabar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:28:09 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/05/03 12:51:46 by ankhabar         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:01:21 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int	which_type_identifier(char *str)
 	return (-1);
 }
 
-void	parse_line(t_elements *elements, char *line)
+void	parse_line(t_elem *elements, char *line)
 {
 	int			id;
 	char		*tmp;
 	char		**words;
-	static bool	(*funcs[6])(t_elements *, char **) = {ambient, camera, light,
+	static bool	(*funcs[6])(t_elem *, char **) = {ambient, camera, light,
 		sphere, plane, cylinder};
 
 	tmp = ft_strtrim(line, '\n');
@@ -50,17 +50,17 @@ void	parse_line(t_elements *elements, char *line)
 	free_tab(words);
 }
 
-void	elements_init(t_elements *elements)
+void	elements_init(t_elem *elements)
 {
-	elements->ambient = NULL;
-	elements->camera = NULL;
 	elements->lights_head = NULL;
 	elements->objects_head = NULL;
+	elements->flag_camera = 0;
+	elements->flag_ambient = 0;
 }
 
 void	parsing(int fd)
 {
-	t_elements	elements;
+	t_elem	elements;
 	char		*buff;
 
 	elements_init(&elements);

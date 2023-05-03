@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_checks.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankhabar <ankhabar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:02:23 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/05/03 13:11:20 by ankhabar         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	invalid_chars(char *str)
 	return (EXIT_SUCCESS);
 }
 
-bool	not_valid_parameter(char *to_check, double min, double max)
+bool	not_valid_parameter(char *to_check, float min, float max)
 {
 	if (invalid_chars(to_check))
 	{
@@ -85,7 +85,7 @@ bool	not_valid_number_of_commas(char *to_check)
 	return (EXIT_SUCCESS);
 }
 
-bool	not_valid_range(char *to_check, double min, double max)
+bool	not_valid_range(char *to_check, float min, float max)
 {
 	char	**tab;
 	int		i;

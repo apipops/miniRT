@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse_lights.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankhabar <ankhabar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:02:17 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/05/03 13:13:16 by ankhabar         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:01:21 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 // first node initialization
-static void	init_light_head(t_elements *elems, char **params)
+static void	init_light_head(t_elem *elems, char **params)
 {
 	char	**tab;
 
@@ -39,7 +39,7 @@ static t_light	*sp_lstlast(t_light *lst)
 	return (lst);
 }
 
-static void	new_node_light(t_elements *elems, char **params)
+static void	new_node_light(t_elem *elems, char **params)
 {
 	char	**tab;
 	t_light	*plst;
@@ -63,7 +63,7 @@ static void	new_node_light(t_elements *elems, char **params)
 }
 
 // adds first node via init_light_head function or a new node
-static void	add_node_light(t_elements *elems, char **params)
+static void	add_node_light(t_elem *elems, char **params)
 {
 	if (elems->lights_head == NULL)
 		init_light_head(elems, params);
@@ -74,7 +74,7 @@ static void	add_node_light(t_elements *elems, char **params)
 // in this function i check every parameter of the line L
 // if some parameter outranges or has wrong number of parameters
 // this function will exit with failure status
-bool	light(t_elements *elems, char **params)
+bool	light(t_elem *elems, char **params)
 {
 	int		i;
 

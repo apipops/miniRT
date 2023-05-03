@@ -48,7 +48,7 @@ HEADER			= includes/minirt.h
 #### COMPILATION
 
 CC			= clang
-CFLAGS		+= -Wall -Wextra -Werror
+CFLAGS		+= -Wall -Wextra -Werror -g3
 CFLAGS		+= -mavx
 SMAKE		= make --no-print-directory
 
@@ -56,7 +56,7 @@ SMAKE		= make --no-print-directory
 
 all : $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(LIBFT) $(OBJS) Makefile
 	@$(CC) $(CFLAGS) $(OBJS) -o $@ -L $(INCLUDES) -L $(LIBFT_PATH) -lft -lreadline
 	@echo "use ./$(NAME) to run basic tests"
 

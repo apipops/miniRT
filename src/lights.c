@@ -6,23 +6,23 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:20:31 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 12:25:16 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/params.h"
 #include "../includes/proto.h"
-#include "../libft/libft.h"
+#include "../libft/includes/libft.h"
 
-t_vec3	get_ambient_light(t_ambient ambient, t_vec3 obj_color)
+t_vec3	get_ambient_light(t_hit_rec rec, t_ambient ambient)
 {
-	return (ambient.ratio * (ambient.colors.xyz + obj_color.xyz));
+	return (ambient.ratio * (ambient.colors.xyz + rec.obj_color.xyz));
 }
 
-t_vec3	get_direct_light(t_hit_rec rec, t_light light, t_vec3 obj_color)
+t_vec3	get_direct_light(t_hit_rec rec, t_light light)
 {
 	t_vec3	directional_light;
-	double	dot;
+	float	dot;
 	t_vec3	color;
 
 	directional_light.xyz = vec3_normalize(light.origin.xyz - rec.p.xyz);
@@ -30,16 +30,16 @@ t_vec3	get_direct_light(t_hit_rec rec, t_light light, t_vec3 obj_color)
 	if (dot < 0)
 		color.xyz = 0;
 	else
-		color.xyz = light.ratio * dot * (light.colors.xyz + obj_color.xyz);
+		color.xyz = light.ratio * dot * (light.colors.xyz + rec.obj_color.xyz);
 	return (color);
 }
 
 // Couleur de la lumiere + Portien de reflexion platique + Rugosite de la surface
-t_vec3	get_spec_light(t_camera cam, t_hit_rec rec, t_light light, t_vec3 o_col)
+t_vec3	get_spec_light(t_camera cam, t_hit_rec rec, t_light light)
 {
 	t_vec3	dir_l;
 	t_vec3	ref_l;
-	double	dot;
+	float	dot;
 	t_vec3	color;
 
 	dir_l = vec3_normalize(light.origin.xyz - rec.p.xyz);
@@ -49,7 +49,7 @@ t_vec3	get_spec_light(t_camera cam, t_hit_rec rec, t_light light, t_vec3 o_col)
 	if (dot < 0)
 		color.xyz = 0;
 	else
-		color.xyz = light.ratio * pow(dot, 23) * (o_col.xyz + ((1 - 0.5)
-					* o_col.xyz + 0.5));
+		color.xyz = light.ratio * pow(dot, 23) * (rec.obj_color.xyz + ((1 - 0.5)
+					* rec.obj_color.xyz + 0.5));
 	return (color);
 }

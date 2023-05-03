@@ -6,30 +6,30 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 18:29:27 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 12:40:37 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/params.h"
 #include "../includes/proto.h"
-#include "../libft/libft.h"
+#include "../libft/includes/libft.h"
 
-double	deg_to_rad(double a)
+float	deg_to_rad(float a)
 {
 	return (a / 180 * 3.14159265);
 }
 
-double	cal_cos(int a)
+float	cal_cos(int a)
 {
 	return (cos(0.0174533 * a));
 }
 
-double	cal_sin(int a)
+float	cal_sin(int a)
 {
 	return (sin(0.0174533 * a));
 }
 
-double	ft_abs(double a)
+float	ft_abs(float a)
 {
 	if (a < 0)
 		return (-a);

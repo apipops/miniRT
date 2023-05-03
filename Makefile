@@ -1,6 +1,7 @@
 NAME = miniRT
 
 SRC = src/main.c \
+	src/mlx_init.c \
 	src/hooks.c \
 	src/display.c \
 	src/raytracing.c \
@@ -10,12 +11,22 @@ SRC = src/main.c \
 	src/vec3_utils.c \
 	src/ray_utils.c \
 	src/math.c \
-	
+	src/free.c \
+	src/error.c \
+	src/parse_ac.c \
+	src/parse_checks.c \
+	src/parse_cylinders.c \
+	src/parse_lights.c \
+	src/parse_objects.c \
+	src/parse_planes.c \
+	src/parse_spheres.c \
+	src/parse_utils.c \
 
 OBJ = $(SRC:.c=.o)
 
 INCLUDES = includes/params.h \
-	includes/proto.h
+	includes/proto.h \
+	includes/colors.h
 
 CC = cc 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankhabar <ankhabar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:02:23 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/05/02 13:07:32 by ankhabar         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 t_vec3	colors_to_percent(char **tab)
 {
 	t_vec3	ret;
-	double	red;
-	double	green;
-	double	blue;
+	float	red;
+	float	green;
+	float	blue;
 
 	red = ft_atof(tab[0]);
 	green = ft_atof(tab[1]);

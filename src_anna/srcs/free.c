@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankhabar <ankhabar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 17:05:25 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/05/02 16:38:41 by ankhabar         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:01:21 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	free_lights(t_light *lights)
 	}
 }
 
-void	free_structures(t_elements *elems)
+void	free_structures(t_elem *elems)
 {
-	if (elems->ambient != NULL)
+/* 	if (elems->ambient != NULL)
 		free(elems->ambient);
 	if (elems->camera != NULL)
-		free(elems->camera);
+		free(elems->camera); */
 	if (elems->lights_head != NULL)
 		free_lights(elems->lights_head);
 	if (elems->objects_head != NULL)

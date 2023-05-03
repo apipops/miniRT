@@ -6,13 +6,13 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:30:54 by avast             #+#    #+#             */
-/*   Updated: 2023/05/02 09:48:51 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 15:29:49 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/params.h"
 #include "../includes/proto.h"
-#include "../libft/libft.h"
+#include "../libft/includes/libft.h"
 
 int	close_window(t_data *data)
 {
@@ -22,6 +22,7 @@ int	close_window(t_data *data)
 	/* Ligne a commenter pour macos */
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
+	free_structures(&data->elements);
 	exit (0);
 }
 

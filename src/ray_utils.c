@@ -6,15 +6,15 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:59:55 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 12:05:44 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/params.h"
 #include "../includes/proto.h"
-#include "../libft/libft.h"
+#include "../libft/includes/libft.h"
 
-t_ray	get_ray(double u, double v, t_data data)
+t_ray	get_ray(float u, float v, t_data data)
 {
 	t_ray	ray;
 
@@ -33,7 +33,7 @@ t_ray	get_shadow_ray(t_hit_rec rec, t_light light)
 	return (ray);
 }
 
-t_vec3	ray_at(t_ray ray, double t)
+t_vec3	ray_at(t_ray ray, float t)
 {
 	return (ray.origin.xyz + t * ray.direction.xyz);
 }

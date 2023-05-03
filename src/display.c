@@ -6,13 +6,13 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:53:19 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 12:42:45 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/params.h"
 #include "../includes/proto.h"
-#include "../libft/libft.h"
+#include "../libft/includes/libft.h"
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
@@ -27,8 +27,8 @@ void	display_ray(t_data *data)
 {
 	int			j;
 	int			i;
-	double		u;
-	double		v;
+	float		u;
+	float		v;
 	t_ray		r;
 
 	j = 0;
@@ -37,8 +37,8 @@ void	display_ray(t_data *data)
 		i = 0;
 		while (i < WIDTH)
 		{
-			u = (double)i / (WIDTH - 1);
-			v = (double)j / (HEIGHT - 1);
+			u = (float)i / (WIDTH - 1);
+			v = (float)j / (HEIGHT - 1);
 			r = get_ray(u, v, *data);
 			img_pix_put(&data->img, i, j, define_color(data, r));
 			i++;

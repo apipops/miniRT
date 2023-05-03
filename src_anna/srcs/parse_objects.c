@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankhabar <ankhabar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:48:31 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/05/03 13:13:33 by ankhabar         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:01:21 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 // first node initialization
-void	init_object_head(t_elements *elems, char **params, int type)
+void	init_object_head(t_elem *elems, char **params, int type)
 {
 	elems->objects_head = malloc(sizeof(t_objects));
 	if (!elems->objects_head)
@@ -44,7 +44,7 @@ static t_objects	*sp_lstlast(t_objects *lst, int *id)
 	return (lst);
 }
 
-void	new_node_object(t_elements *elems, char **params, int type)
+void	new_node_object(t_elem *elems, char **params, int type)
 {
 	t_objects	*plst;
 	t_objects	*new_node;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ac.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ankhabar <ankhabar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:09:26 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/05/03 13:14:10 by ankhabar         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:01:21 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 // in this function i initialize ambient structure if it was not initialized
 // if it was already initialized, i print an error (change to stderr) and exit
-bool	reinit_ambient(t_elements *elems, char **params)
+bool	reinit_ambient(t_elem *elems, char **params)
 {
 	char	**colors;
 
-	if (elems->ambient == NULL)
+	if (elems->flag_ambient == 0)
 	{
-		elems->ambient = malloc(sizeof(t_ambient));
-		elems->ambient->ratio = ft_atof(params[1]);
+		elems->ambient.ratio = ft_atof(params[1]);
 		colors = ft_split(params[2], ',');
-		elems->ambient->colors = colors_to_percent(colors);
+		elems->ambient.colors = colors_to_percent(colors);
 		free_tab(colors);
 		return (EXIT_SUCCESS);
 	}
@@ -33,22 +32,22 @@ bool	reinit_ambient(t_elements *elems, char **params)
 
 // in this function i initialize camera structure if it was not initialized
 // if it was already initialized, i print an error (change to stderr) and exit
-bool	reinit_camera(t_elements *elems, char **params)
+bool	reinit_camera(t_elem *elems, char **params)
 {
 	char	**tab;
 
-	if (elems->camera == NULL)
+	if (elems->flag_camera == 0)
 	{
-		elems->camera = malloc(sizeof(t_camera));
+		//elems->camera = malloc(sizeof(t_camera));
 		tab = ft_split(params[1], ',');
-		elems->camera->origin = (t_vec3){ft_atof(tab[0]),
+		elems->camera.origin = (t_vec3){ft_atof(tab[0]),
 			ft_atof(tab[1]), ft_atof(tab[2])};
 		free_tab(tab);
 		tab = ft_split(params[2], ',');
-		elems->camera->orientation = (t_vec3){ft_atof(tab[0]),
+		elems->camera.dir = (t_vec3){ft_atof(tab[0]),
 			ft_atof(tab[1]), ft_atof(tab[2])};
 		free_tab(tab);
-		elems->camera->fov = ft_atof(params[3]);
+		elems->camera.fov = ft_atof(params[3]);
 		return (EXIT_SUCCESS);
 	}
 	ft_dprintf(2, FRED"Error\n"ERRDEF"\n");
@@ -58,7 +57,7 @@ bool	reinit_camera(t_elements *elems, char **params)
 // in this function i check every parameter of the line A
 // if some parameter outranges or has wrong number of parameters
 // this function will exit with failure status
-bool	ambient(t_elements *elems, char **params)
+bool	ambient(t_elem *elems, char **params)
 {
 	int		i;
 
@@ -82,7 +81,7 @@ bool	ambient(t_elements *elems, char **params)
 // in this function i check every parameter of the line C
 // if some parameter outranges or has wrong number of parameters
 // this function will exit with failure status
-bool	camera(t_elements *elems, char **params)
+bool	camera(t_elem *elems, char **params)
 {
 	int		i;
 

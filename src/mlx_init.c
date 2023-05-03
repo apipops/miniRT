@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:40:22 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 16:30:23 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 17:18:01 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,17 @@
 // normalize les vecteurs
 void	initialize_data(t_data *data, t_elem elem)
 {
-	t_camera	camera;
-
-	// normalize dans le parsing
-	elem.camera.dir = vec3_normalize(elem.camera.dir);
-	camera = elem.camera;
 	data->elements = elem;
 	data->aspect_ratio = (float)WIDTH / (float)HEIGHT;
 	data->focal_length = 1;
-	data->height = 2 * data->focal_length * tan(deg_to_rad(camera.fov) / 2);
+	data->height = 2 * data->focal_length
+		* tan(deg_to_rad(elem.camera.fov) / 2);
 	data->width = data->height * data->aspect_ratio;
 	data->horizontal = data->width
-		* vec3_normalize(vec3_cross(camera.dir, (t_vec3){0, 1, 0}));
+		* vec3_normalize(vec3_cross(elem.camera.dir, (t_vec3){0, 1, 0}));
 	data->vertical = data->height
-		* vec3_normalize(vec3_cross(camera.dir, data->horizontal));
-	data->corner = camera.origin.xyz + camera.dir.xyz
+		* vec3_normalize(vec3_cross(elem.camera.dir, data->horizontal));
+	data->corner = elem.camera.origin.xyz + elem.camera.dir.xyz
 		- data->horizontal.xyz / 2 - data->vertical.xyz / 2;
 }
 

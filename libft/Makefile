@@ -6,7 +6,7 @@
 #    By: avast <avast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 13:58:51 by ulysse            #+#    #+#              #
-#    Updated: 2023/05/03 14:55:02 by avast            ###   ########.fr        #
+#    Updated: 2023/05/03 18:15:44 by avast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,17 +112,17 @@ all: $(NAME)
 #bonus: $(NAME)
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^ 
+	@$(AR) $@ $^ 
 
 $(OBJS): $(PATH_OBJS)/%.o: %.c $(HEADER)
 	@mkdir -p $(PATH_OBJS)
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDES) 
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDES) 
 
 clean:
-	 $(RM) -R $(PATH_OBJS)
+	@$(RM) -R $(PATH_OBJS)
 
 fclean: clean
-	$(RM) $(NAME)	
+	@$(RM) $(NAME)	
 
 re: fclean
-	$(MAKE)
+	@$(MAKE)

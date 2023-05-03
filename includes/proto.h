@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 17:41:24 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ bool	hit_anything(t_ray r, t_elem elem, t_hit_rec *rec, int exclu);
 t_vec3	update_color_shadow(t_hit_rec rec, t_elem elem);
 
 /* LIGTHS */
-t_vec3	get_ambient_light(t_hit_rec rec, t_ambient ambient);
+t_vec3	get_ambient_light(t_vec3 obj_color, t_ambient ambient);
 t_vec3	get_direct_light(t_hit_rec rec, t_light light);
 t_vec3	get_spec_light(t_camera cam, t_hit_rec rec, t_light light);
 

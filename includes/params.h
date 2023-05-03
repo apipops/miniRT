@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 17:58:21 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,6 @@ typedef struct s_ray
 	t_vec3	direction;
 }	t_ray;
 
-/* typedef struct s_dir_ligth
-{
-	t_vec3	position;
-	float	intensity;
-	t_vec3	color;
-}	t_dir_ligth;
-
-typedef struct s_amb_light
-{
-	float	intensity;
-	t_vec3	color;
-}	t_amb_ligth; */
-
 typedef struct s_ambient {
 	float	ratio;
 	t_vec3	colors;
@@ -155,11 +142,9 @@ typedef struct s_data
 	t_img		img;
 	t_elem		elements;
 	float		aspect_ratio;
+	float		focal_length;
 	float		height;
 	float		width;
-	float		focal_length;
-	t_vec3		origin;
-	t_vec3		direction;
 	t_vec3		horizontal;
 	t_vec3		vertical;
 	t_vec3		corner;

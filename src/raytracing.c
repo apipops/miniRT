@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:13:35 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 16:26:39 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 17:44:21 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ bool	hit_anything(t_ray r, t_elem elem, t_hit_rec *rec, int obj_excluded)
 	return (hit_anything);
 }
 
-
-
-
 t_vec3	update_color_shadow(t_hit_rec rec, t_elem elem)
 {
 	t_light	*light;
@@ -92,7 +89,7 @@ t_vec3	update_color_shadow(t_hit_rec rec, t_elem elem)
 	}
 	if (light_count > 0)
 		color.xyz /= light_count;
-	color.xyz += get_ambient_light(rec, elem.ambient);
+	color.xyz += get_ambient_light(rec.obj_color, elem.ambient);
 	return (color.xyz / 3);
 }
 
@@ -101,10 +98,11 @@ int	define_color(t_data *data, t_ray r)
 	t_vec3		color;
 	t_hit_rec	rec;
 
+	color = (t_vec3){0, 0, 0};
 	if (hit_anything(r, data->elements, &rec, ALL_OBJ))
 		color = update_color_shadow(rec, data->elements);
 	else
-		color.xyz = get_ambient_light(rec, data->elements.ambient).xyz / 3;
+		color.xyz = get_ambient_light(color, data->elements.ambient).xyz / 3;
 	return (get_color(color));
 }
 

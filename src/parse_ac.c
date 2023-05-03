@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:09:26 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/05/03 16:36:42 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:53:52 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	reinit_camera(t_elem *elems, char **params)
 		free_tab(tab);
 		tab = ft_split(params[2], ',');
 		elems->camera.dir = vec3_normalize((t_vec3){ft_atof(tab[0]),
-			ft_atof(tab[1]), ft_atof(tab[2])});
+				ft_atof(tab[1]), ft_atof(tab[2])});
 		free_tab(tab);
 		elems->camera.fov = ft_atof(params[3]);
 		return (EXIT_SUCCESS);

@@ -5,9 +5,10 @@ SRC = src/main.c \
 	src/hooks.c \
 	src/display.c \
 	src/raytracing.c \
-	src/lights.c \
-	src/plane.c \
-	src/sphere.c \
+	src/ray_lights.c \
+	src/ray_plane.c \
+	src/ray_sphere.c \
+	src/ray_cylinder.c \
 	src/vec3_utils.c \
 	src/ray_utils.c \
 	src/math.c \

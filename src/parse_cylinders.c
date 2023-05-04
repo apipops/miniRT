@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:49:06 by ankhabar          #+#    #+#             */
-/*   Updated: 2023/05/03 15:29:49 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/04 12:02:51 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	init_cylinder(t_objects *object, char **params)
 		ft_atof(tab[1]), ft_atof(tab[2])};
 	free_tab(tab);
 	tab = ft_split(params[2], ',');
-	object->dir = (t_vec3){ft_atof(tab[0]),
-		ft_atof(tab[1]), ft_atof(tab[2])};
+	object->dir = vec3_normalize((t_vec3){ft_atof(tab[0]),
+			ft_atof(tab[1]), ft_atof(tab[2])});
 	free_tab(tab);
 	object->radius = ft_atof(params[3]) / 2;
 	object->height = ft_atof(params[4]);

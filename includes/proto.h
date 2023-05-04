@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 17:41:24 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/04 13:01:04 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,21 @@ int		define_color(t_data *data, t_ray r);
 bool	hit_anything(t_ray r, t_elem elem, t_hit_rec *rec, int exclu);
 t_vec3	update_color_shadow(t_hit_rec rec, t_elem elem);
 
-/* LIGTHS */
+/* RAY_LIGTHS */
 t_vec3	get_ambient_light(t_vec3 obj_color, t_ambient ambient);
 t_vec3	get_direct_light(t_hit_rec rec, t_light light);
 t_vec3	get_spec_light(t_camera cam, t_hit_rec rec, t_light light);
 
-/* SPHERE */
+/* RAY_SPHERE */
 bool	hit_sphere(t_objects sphere, t_ray r, t_vec2 limit, t_hit_rec *rec);
 void	set_sphere_hit_rec(t_ray r, float t, t_objects sphere, t_hit_rec *rec);
 bool	hit_sphere_shadow(t_ray r, t_hit_rec rec);
 
-/* PLAN */
+/* RAY_PLANE */
 bool	hit_plane(t_objects plane, t_ray r, t_vec2 limit, t_hit_rec *rec);
+
+/* RAY_CYLINDER */
+bool	hit_cylinder(t_objects cylinder, t_ray r, t_vec2 limit, t_hit_rec *rec);
 
 /* MATH */
 float	cal_cos(int a);

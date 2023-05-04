@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:13:35 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 17:44:21 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/04 16:50:42 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	save_rec(float *closest, t_hit_rec tmp, t_hit_rec *rec, bool *hit)
 	}
 }
 
+// Voir si on fait closest ici ?
 bool	hit_anything(t_ray r, t_elem elem, t_hit_rec *rec, int obj_excluded)
 {
 	float		closest;
@@ -58,6 +59,9 @@ bool	hit_anything(t_ray r, t_elem elem, t_hit_rec *rec, int obj_excluded)
 		if (obj->id != obj_excluded && obj->type == PLANE
 			&& hit_plane(*obj, r, (t_vec2){0, closest}, &tmp_rec))
 			save_rec(&closest, tmp_rec, rec, &hit_anything);
+		if (obj->id != obj_excluded && obj->type == CYLINDER
+			&& hit_cylinder(*obj, r, (t_vec2){0, closest}, &tmp_rec))
+			save_rec(&closest, tmp_rec, rec, &hit_anything);
 		// dans la cas ou on cherche une ombre, on peut sortir
 		if (obj_excluded >= 0 && hit_anything)
 			break ;
@@ -70,25 +74,21 @@ t_vec3	update_color_shadow(t_hit_rec rec, t_elem elem)
 {
 	t_light	*light;
 	t_vec3	color;
-	int		light_count;
 	t_ray	shadow_ray;
 
 	light = elem.lights_head;
 	color = (t_vec3){0, 0, 0};
-	light_count = 0;
 	while (light)
 	{
 		shadow_ray = get_shadow_ray(rec, *light);
 		if (!hit_anything(shadow_ray, elem, NULL, rec.obj_id))
 		{
-			light_count++;
-			color.xyz += get_direct_light(rec, *light);
-			color.xyz += get_spec_light(elem.camera, rec, *light);
+			color.xyz = (t_vec3){1, 0, 0};
+ 			//color.xyz += get_direct_light(rec, *light);
+			//color.xyz += get_spec_light(elem.camera, rec, *light);
 		}
 		light = light->next;
 	}
-	if (light_count > 0)
-		color.xyz /= light_count;
 	color.xyz += get_ambient_light(rec.obj_color, elem.ambient);
 	return (color.xyz / 3);
 }
@@ -106,43 +106,3 @@ int	define_color(t_data *data, t_ray r)
 	return (get_color(color));
 }
 
-/* bool	hit_anything(t_ray r, t_vec2 limit, t_hit_rec *rec)
-{
-	float		closest_so_far;
-	bool		hit_anything;
-	t_hit_rec	temp_rec;
-
-	hit_anything = false;
-	closest_so_far = limit.y;
-	if (hit_sphere((t_vec3){0, 0, -1}, 0.5, r, (t_vec2){limit.x, closest_so_far}, &temp_rec))
-	{
-		hit_anything = true;
-		if (rec) // cas ou on calcule un rayon et non pas un shadow rayon
-		{
-			temp_rec.obj_id = 1;
-			closest_so_far = temp_rec.t;
-				*rec = temp_rec;
-		}
-	}
-   	if (hit_sphere((t_vec3){0, -100.5, -1}, 100, r, (t_vec2){limit.x, closest_so_far}, &temp_rec))
-	{
-		hit_anything = true;
-		if (rec) // cas ou on calcule un rayon et non pas un shadow rayon
-		{
-			temp_rec.obj_id = 2;
-			closest_so_far = temp_rec.t;
-				*rec = temp_rec;
-		}
-	}
-	if (hit_plan((t_vec3){0, -1, -1}, (t_vec3){1, -5, 0}, r, (t_vec2){limit.x, closest_so_far}, &temp_rec))
-	{
-		hit_anything = true;
-		if (rec) // cas ou on calcule un rayon et non pas un shadow rayon
-		{
-			temp_rec.obj_id = 3;
-			closest_so_far = temp_rec.t;
-				*rec = temp_rec;
-		}
-	}
-	return (hit_anything);
-} */

@@ -6,14 +6,14 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:54:19 by avast             #+#    #+#             */
-/*   Updated: 2023/05/03 17:58:21 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/22 13:53:15 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARAMS_H
 # define PARAMS_H
 
-# include "../libft/includes/libft.h"
+# include "libft.h"
 # include "colors.h"
 # include <stdlib.h>
 # include <stdio.h>
@@ -68,6 +68,13 @@
 # define SPHERE		1
 # define PLANE		2
 # define CYLINDER	3
+# define CONES		4
+
+# define MIN_SHADOW	0.00001
+# define MIN_MLX	0.00000001
+
+# define BOTTOM		1
+# define TOP		2
 
 typedef float	t_vec3	__attribute__((ext_vector_type(3)));
 typedef float	t_vec2	__attribute__((ext_vector_type(2)));
@@ -86,6 +93,14 @@ typedef struct s_ray
 	t_vec3	origin;
 	t_vec3	direction;
 }	t_ray;
+
+typedef struct s_equation
+{
+	float	a;
+	float	b;
+	float	c;
+	float	delta;
+}			t_equa;
 
 typedef struct s_ambient {
 	float	ratio;
@@ -123,7 +138,6 @@ typedef struct s_hit_record
 	t_vec3	p;
 	t_vec3	normal;
 	float	t;
-	bool	front_face;
 }	t_hit_rec;
 
 typedef struct s_elements {
@@ -131,8 +145,8 @@ typedef struct s_elements {
 	t_camera	camera;
 	t_light		*lights_head;
 	t_objects	*objects_head;
-	int			flag_camera;
-	int			flag_ambient;
+	int			camera_initialized;
+	int			ambient_initialized;
 }				t_elem;
 
 typedef struct s_data

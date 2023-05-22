@@ -1,92 +1,110 @@
-NAME = miniRT
+#### NAME
+NAME		= miniRT
 
-SRC = src/main.c \
-	src/mlx_init.c \
-	src/hooks.c \
-	src/display.c \
-	src/raytracing.c \
-	src/ray_lights.c \
-	src/ray_plane.c \
-	src/ray_sphere.c \
-	src/ray_cylinder.c \
-	src/vec3_utils.c \
-	src/ray_utils.c \
-	src/math.c \
-	src/free.c \
-	src/error.c \
-	src/parse_ac.c \
-	src/parse_checks.c \
-	src/parse_cylinders.c \
-	src/parse_lights.c \
-	src/parse_objects.c \
-	src/parse_planes.c \
-	src/parse_spheres.c \
-	src/parse_utils.c \
+#### PATH TO SOURCES
+PATH_SRCS	+= srcs/
 
-OBJ = $(SRC:.c=.o)
+#### SOURCES
+SRCS		+= display.c
+SRCS		+= free.c
+SRCS		+= hooks.c
+SRCS		+= main.c
+SRCS		+= maths_utils.c
+SRCS		+= mlx_init.c
+SRCS		+= parse_ac.c
+SRCS		+= parse_checks.c
+SRCS		+= parse_cones.c
+SRCS		+= parse_cylinders.c
+SRCS		+= parse_init.c
+SRCS		+= parse_lights.c
+SRCS		+= parse_objects.c
+SRCS		+= parse_planes.c
+SRCS		+= parse_spheres.c
+SRCS		+= parse_utils.c
+SRCS		+= ray_cones.c
+SRCS		+= ray_cylinders.c
+SRCS		+= ray_lights.c
+SRCS		+= ray_planes.c
+SRCS		+= ray_spheres.c
+SRCS		+= ray_utils.c
+SRCS		+= raytracing.c
+SRCS		+= vec3_utils.c
 
-INCLUDES = includes/params.h \
-	includes/proto.h \
-	includes/colors.h
+vpath %.c $(PATH_SRCS)
 
-CC = cc 
+#### OBJS
+PATH_OBJS	= objs/
+OBJS		= $(patsubst %.c, $(PATH_OBJS)/%.o, $(SRCS))
 
-FLAGS = -Wall -Wextra -Werror 
+#### OBJ_FLAGS
+OBJ_FLAGS	+= -I./libft/includes
+OBJ_FLAGS	+= -Imlx_linux
+OBJ_FLAGS	+= -I./includes
+OBJ_FLAGS	+= -I/usr/include
 
-FLAG_MAVX = -mavx
+#### INCLUDES
+INCLUDES	+= includes/proto.h
+INCLUDES	+= includes/colors.h
+INCLUDES	+= includes/params.h
 
+#### COMPILATION
+CC			= cc
+CFLAGS		+= -Wall -Wextra -Werror 
+CFLAGS		+= -mavx
+SMAKE		= make --no-print-directory
+
+#### COMP_FLAGS
+COMP_FLAGS	+= -Imlx_linux
+COMP_FLAGS	+= -Lmlx_linux
+COMP_FLAGS	+= -L/usr/lib
+COMP_FLAGS	+= -lmlx_Linux
+COMP_FLAGS	+= -lXext
+COMP_FLAGS	+= -lX11
+COMP_FLAGS	+= -lft
+COMP_FLAGS	+= -lm
+
+#### LIBRARY
+LIBFT_PATH	= libft/
+LIBFT		= $(LIBFT_PATH)/libft.a
+
+#### MACOS
 MACOS = miniRT_macos
 
-LIBFT = ./libft/libft.a
+#### COLORS
+GREEN		= \033[1;92m
+YELLOW		= \033[1;93m
+PURPLE		= \033[1;95m
+CYAN		= \033[1;96m
 
-LIBFTDIR = ./libft/
-
-MAKEFLAGS += --no-print-directory
-
-BLUE = \033[1;94m
-
-PURPLE = \033[1;95m
-
-GREEN = \033[1;92m
-
-
-YELLOW = \033[1;93m
-
+#### RULES
 all: $(NAME)
 
-macos: $(MACOS)
-
-# A commenter si on utilise macos
-%.o: %.c
-	@$(CC) $(FLAGS) $(FLAG_MAVX) -g -I./includes -I./libft -I/usr/include -Imlx_linux -O3 -c $< -o $@
-
-$(NAME): $(OBJ) $(LIBFT) $(INCLUDES)
-	@$(CC) $(OBJ) $(FLAGS) $(FLAG_MAVX) -L$(LIBFTDIR) -g -lft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-	@printf "$(YELLOW)------Compilation executed------\n\n"
-
-# A decommenter si on ulitise macos
-#%.o: %.c
-#	@$(CC) $(FLAGS) -Imlx_macos -I./libft -I/opt/X11/include -c $< -o $@
-
-$(MACOS): $(OBJ) $(LIBFT) $(INCLUDES)
-	@$(CC) $(OBJ) $(FLAGS) -L$(LIBFTDIR) -lft -Lmlx_macos -lmlx_macos -framework OpenGL -framework AppKit -o $(MACOS)
-	@printf "$(YELLOW)------Compilation executed------\n\n"
-
+$(NAME): $(OBJS) $(LIBFT) $(INCLUDES) Makefile
+	@$(CC) $(CFLAGS) $(OBJS) -o $@ -L $(LIBFT_PATH) $(COMP_FLAGS)
+	@echo "$(YELLOW)------Compilation executed------"
+	@echo "$(YELLOW)         _      _ ___  ______"
+	@echo "$(YELLOW)  __ _  (_)__  (_) _ \/_  __/"
+	@echo "$(YELLOW) /  ' \/ / _ \/ / , _/ / /   "
+	@echo "$(YELLOW)/_/_/_/_/_//_/_/_/|_| /_/    \n"
 
 $(LIBFT):
-	@make -C $(LIBFTDIR) 
-	@printf "$(BLUE)--------Libft.a created----------\n\n"
+	@$(SMAKE) -sC $(LIBFT_PATH)
+	@echo "$(CYAN)--------libft.a created----------\n"
+
+$(OBJS): $(PATH_OBJS)/%.o: %.c $(INCLUDES)
+	@mkdir -p $(PATH_OBJS)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(OBJ_FLAGS)
 
 clean:
-	@/bin/rm -f $(OBJ) 
-	@make clean -C $(LIBFTDIR)
-	@printf "$(PURPLE)------Object files deleted-------\n\n"
+	@$(RM) -R $(PATH_OBJS)
+	@$(SMAKE) -sC $(LIBFT_PATH) clean
+	@echo "$(PURPLE)------object files deleted-------\n"
 
 fclean: clean
-	@/bin/rm -f $(NAME) $(MACOS)
-	@make fclean -C $(LIBFTDIR)
-	@printf "$(GREEN)----Executable files deleted-----\n\n"
+	@$(RM) $(NAME)
+	@$(SMAKE) -sC $(LIBFT_PATH) fclean
+	@echo "$(GREEN)----Executable files deleted-----\n"
 
 re: fclean all
 
-ra: fclean macos
+.PHONY: all clean fclean re

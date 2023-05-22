@@ -6,18 +6,14 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:00:40 by avast             #+#    #+#             */
-/*   Updated: 2023/05/04 13:01:04 by avast            ###   ########.fr       */
+/*   Updated: 2023/05/22 12:21:08 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROTO_H
 # define PROTO_H
 
-
 /* PARSING */
-
-//error ------------------------------------------- //
-void	error(char **to_free, t_elem *elems, int code);
 
 //free -------------------------------------------- //
 void	free_tab(char **tab);
@@ -33,6 +29,9 @@ bool	reinit_ambient(t_elem *elems, char **params);
 bool	reinit_camera(t_elem *elems, char **params);
 bool	reinit_light(t_elem *elems, char **params);
 
+//parsing init ------------------------------------ //
+void	parsing(t_elem *elem, int fd);
+
 //parse objects ----------------------------------- //
 void	init_object_head(t_elem *elems, char **params, int type);
 void	new_node_object(t_elem *elems, char **params, int type);
@@ -40,6 +39,10 @@ void	new_node_object(t_elem *elems, char **params, int type);
 //parse cylinders --------------------------------- //
 void	init_cylinder(t_objects *object, char **params);
 bool	cylinder(t_elem *elems, char **params);
+
+//parse cones ------------------------------------- //
+void	init_cones(t_objects *object, char **params);
+bool	cones(t_elem *elems, char **params);
 
 //parse planes ------------------------------------ //
 void	init_plane(t_objects *object, char **params);
@@ -74,7 +77,7 @@ int		handle_keypress(int keysym, t_data *data);
 
 /* RAYTRACING */
 int		define_color(t_data *data, t_ray r);
-bool	hit_anything(t_ray r, t_elem elem, t_hit_rec *rec, int exclu);
+bool	hit_anything(t_ray r, t_elem elem, t_hit_rec *rec, t_vec3 limit);
 t_vec3	update_color_shadow(t_hit_rec rec, t_elem elem);
 
 /* RAY_LIGTHS */
@@ -84,8 +87,6 @@ t_vec3	get_spec_light(t_camera cam, t_hit_rec rec, t_light light);
 
 /* RAY_SPHERE */
 bool	hit_sphere(t_objects sphere, t_ray r, t_vec2 limit, t_hit_rec *rec);
-void	set_sphere_hit_rec(t_ray r, float t, t_objects sphere, t_hit_rec *rec);
-bool	hit_sphere_shadow(t_ray r, t_hit_rec rec);
 
 /* RAY_PLANE */
 bool	hit_plane(t_objects plane, t_ray r, t_vec2 limit, t_hit_rec *rec);
@@ -93,15 +94,17 @@ bool	hit_plane(t_objects plane, t_ray r, t_vec2 limit, t_hit_rec *rec);
 /* RAY_CYLINDER */
 bool	hit_cylinder(t_objects cylinder, t_ray r, t_vec2 limit, t_hit_rec *rec);
 
-/* MATH */
-float	cal_cos(int a);
-float	cal_sin(int a);
+/* RAY_CONE */
+bool	hit_cone(t_objects cone, t_ray r, t_vec2 limit, t_hit_rec *rec);
+
+/* MATHS UTILS */
 float	deg_to_rad(float a);
 float	ft_abs(float a);
-int		ft_sign(int a);
+float	pos_val(float a);
 
 /* VEC3 UTILS*/
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
+float	vec3_distance(t_vec3 a, t_vec3 b);
 float	vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec3_normalize(t_vec3 a);
 
@@ -110,8 +113,5 @@ t_ray	get_ray(float u, float v, t_data data);
 t_ray	get_shadow_ray(t_hit_rec rec, t_light light);
 t_vec3	ray_at(t_ray ray, float t);
 void	set_face_normal(t_ray r, t_vec3 out_normal, t_hit_rec *rec);
-
-
-
 
 #endif
